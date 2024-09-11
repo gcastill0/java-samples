@@ -14,9 +14,9 @@ public class ReverseNumbers3 {
         }
 
         System.out.println(
-            "Your first number is " + numbers[0] + 
-            ", your second number is " + numbers[1] +
-            ", your third number is " + numbers[2] + 
+            "Your first number is " +        numbers[0] + 
+            ", your second number is " +     numbers[1] +
+            ", your third number is " +      numbers[2] + 
             ", and your fourth number is " + numbers[3] + ".");
 
         System.out.println("Therefore, your numbers reversed are: " + 
