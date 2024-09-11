@@ -2,6 +2,13 @@ import java.io.*;
 
 public class ReverseNumbers3 {
 
+    /**
+     * The main method of the ReverseNumbers3 class.
+     * This method reads four float numbers from the user and prints them in reverse order.
+     *
+     * @param args The command-line arguments passed to the program.
+     * @throws IOException If an I/O error occurs while reading the numbers.
+     */
     public static void main(String[] args) throws IOException {
 
         float numbers[] = new float[4];
