@@ -11,21 +11,25 @@ public class ReverseNumbers3 {
      */
     public static void main(String[] args) throws IOException {
 
+        /* Use an array of four (4) float numbers */
         float numbers[] = new float[4];
 
         System.out.println(
                 "Welcome to the Number Reverser Program! When you type in four numbers, they will be returned to you reversed!");
 
+        /* Use a loop to read four (4) times and assign to each number in the array */
         for (int i = 0; i < 4; i++) {
             numbers[i] = readFloatNumber();
         }
 
+        /* Show the user each number in the array */
         System.out.println(
             "Your first number is " +        numbers[0] + 
             ", your second number is " +     numbers[1] +
             ", your third number is " +      numbers[2] + 
             ", and your fourth number is " + numbers[3] + ".");
 
+        /* Show numbers in the array in reverse order*/
         System.out.println("Therefore, your numbers reversed are: " + 
             numbers[3] + ", " + 
             numbers[2] + ", " + 
