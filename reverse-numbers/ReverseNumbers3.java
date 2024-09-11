@@ -6,7 +6,6 @@ public class ReverseNumbers3 {
 
         float numbers[] = new float[4];
 
-        float numberOne, numberTwo, numberThree, numberFour;
         System.out.println(
                 "Welcome to the Number Reverser Program! When you type in four numbers, they will be returned to you reversed!");
 
