@@ -19,6 +19,12 @@ public class ReverseNumbers2 {
 
     }
 
+    /**
+     * Reads a float number from the user.
+     *
+     * @return The float number entered by the user.
+     * @throws IOException If an I/O error occurs while reading the input.
+     */
     public static float readFloatNumber() throws IOException {
 
         float floatNumber;
