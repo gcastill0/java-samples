@@ -13,12 +13,11 @@ public class NumberRound {
         System.out.printf( "PI %f is the original\n", PI);
 
         // PI2 3.140000 is the calculated number to two decimal precision places
-
         System.out.printf( "PI2 %f is the calculated number to two decimal precision places\n", PI2);
 
         // PI2 3.14 displays to two decimal places
         System.out.printf( "PI2 %.2f displays to two decimal places\n", PI2);
-        
+
         System.out.printf("\n\n");
 
     }
