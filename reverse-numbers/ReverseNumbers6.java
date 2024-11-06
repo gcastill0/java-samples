@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class ReverseNumbers5 {
+public class ReverseNumbers6 {
 
     /**
      * The main method of the ReverseNumbers3 class.
@@ -12,16 +12,10 @@ public class ReverseNumbers5 {
      */
     public static void main(String[] args) throws IOException {
 
+        System.out.println("Welcome to the Number Reverser Program! When you type in four numbers, they will be returned to you reversed!");
+
         /* Use an array of four (4) float numbers */
-        float numbers[] = new float[4];
-
-        System.out.println(
-                "Welcome to the Number Reverser Program! When you type in four numbers, they will be returned to you reversed!");
-
-        /* Use a loop to read four (4) times and assign to each number in the array */
-        for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = readFloatNumber();
-        }
+        float numbers[] = getNumbers();
 
         /* Show the user each number in the array */
         printNumbers(numbers);
@@ -29,6 +23,22 @@ public class ReverseNumbers5 {
         /* Show numbers in the array in reverse order */
         printNumbersInReverse(numbers);
 
+    }
+
+    /**
+     * Reads four float numbers from the input and returns them in an array.
+     *
+     * @return an array of four float numbers.
+     */
+    public static float[] getNumbers() throws IOException {
+        float numbers[] = new float[4];
+
+        /* Use a loop to read four (4) times and assign to each number in the array */
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = readFloatNumber();
+        }
+        
+        return numbers;
     }
 
     /**
