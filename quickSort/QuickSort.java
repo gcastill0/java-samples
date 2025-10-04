@@ -39,6 +39,7 @@ public class QuickSort {
         System.arraycopy(left_n_right[0], 0, lower, 0, left_n_right[0].length);
         System.arraycopy(left_n_right[1], 0, higher, 0, left_n_right[1].length);
 
+        // Use recursion to travel the lower and higher branches.
         quicksort(lower);
         quicksort(higher);
 
