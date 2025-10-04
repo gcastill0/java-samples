@@ -77,9 +77,12 @@ public class QuickSort {
      */
     public static int[][] partition(int[] array, int pivot) {
 
+        // Given the strict nature of arrays in Java, we need a
+        // list so that we can grow its bounds dynamically.
         List<Integer> lower = new ArrayList<>();
         List<Integer> higher = new ArrayList<>();
 
+        // Just compare to the value at the pivot index.
         for (int i = 0; i < pivot; i++) {
             if (array[pivot] > array[i]) {
                 lower.add(array[i]);
@@ -88,8 +91,14 @@ public class QuickSort {
             }
         }
 
+        // Prepare a two dimentional array with two elements, and each
+        // element is a potential array.
         int[][] new_arrays = new int[2][];
+
+        // The first array reflects values less than the value at the pivot index.
         new_arrays[0] = new int[lower.size()];
+
+        // The second array reflects values greater than the value at the pivot index.
         new_arrays[1] = new int[higher.size()];
 
         for (int i = 0; i < lower.size(); i++) {
