@@ -1,0 +1,8 @@
+![Iteration 1](img/HeapSort-01.svg)
+![Iteration 2](img/HeapSort-02.svg)
+![Iteration 3](img/HeapSort-03.svg)
+![Iteration 4](img/HeapSort-04.svg)
+![Iteration 5](img/HeapSort-05.svg)
+![Iteration 6](img/HeapSort-06.svg)
+![Iteration 7](img/HeapSort-07.svg)
+![Iteration 8](img/HeapSort-08.svg)
