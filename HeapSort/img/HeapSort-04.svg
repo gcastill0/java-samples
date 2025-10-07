@@ -126,13 +126,37 @@
                 <tspan x="26.9946289" y="34">1</tspan>
             </text>
         </g>
-        <g id="node" transform="translate(848, 800)" xlink:href="#path-14">
+        <g id="node" transform="translate(320, 800)" xlink:href="#path-14">
             <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
             <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
                 <tspan x="26.9946289" y="34">1</tspan>
             </text>
         </g>
-        <g id="node" transform="translate(80, 512)" xlink:href="#path-15">
+        <text id="0" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
+            <tspan x="204.663086" y="739">0</tspan>
+        </text>
+        <text id="1" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
+            <tspan x="108.663086" y="835">1</tspan>
+        </text>
+        <g id="node" transform="translate(224, 704)" xlink:href="#path-15">
+            <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
+            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
+                <tspan x="26.9946289" y="34">3</tspan>
+            </text>
+        </g>
+        <g id="node" transform="translate(128, 800)" xlink:href="#path-16">
+            <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
+            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
+                <tspan x="26.9946289" y="34">2</tspan>
+            </text>
+        </g>
+        <line x1="232" y1="760.341797" x2="184" y2="808.018982" id="Path" stroke="#979797" stroke-width="1"></line>
+        <line x1="232" y1="760.341797" x2="184" y2="808.018982" id="Path" stroke="#979797" stroke-width="1"></line>
+        <text id="2" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
+            <tspan x="396.663086" y="843">2</tspan>
+        </text>
+        <line x1="328" y1="760.341797" x2="280" y2="808.018982" id="Path" stroke="#979797" stroke-width="1" transform="translate(304, 784.1804) scale(-1, 1) translate(-304, -784.1804)"></line>
+        <g id="node" transform="translate(80, 512)" xlink:href="#path-17">
             <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
             <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
                 <tspan x="26.9946289" y="34">4</tspan>
@@ -143,65 +167,45 @@
         <line x1="144" y1="480.341797" x2="128.5" y2="512.5" id="Path" stroke="#979797" stroke-width="1"></line>
         <line x1="328" y1="376.341797" x2="280" y2="424.018982" id="Path" stroke="#979797" stroke-width="1" transform="translate(304, 400.1804) scale(-1, 1) translate(-304, -400.1804)"></line>
         <text id="0" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
-            <tspan x="204.663086" y="739">0</tspan>
-        </text>
-        <text id="1" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
-            <tspan x="108.663086" y="835">1</tspan>
-        </text>
-        <text id="2" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
-            <tspan x="396.663086" y="835">2</tspan>
-        </text>
-        <text id="3" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
-            <tspan x="76.6630859" y="971">3</tspan>
-        </text>
-        <g id="node" transform="translate(224, 704)" xlink:href="#path-16">
-            <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
-            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
-                <tspan x="26.9946289" y="34">3</tspan>
-            </text>
-        </g>
-        <g id="node" transform="translate(128, 800)" xlink:href="#path-17">
-            <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
-            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
-                <tspan x="26.9946289" y="34">2</tspan>
-            </text>
-        </g>
-        <g id="node" transform="translate(320, 800)" xlink:href="#path-18">
-            <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
-            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
-                <tspan x="26.9946289" y="34">1</tspan>
-            </text>
-        </g>
-        <g id="node" transform="translate(80, 896)" xlink:href="#path-19">
-            <rect id="Rectangle" stroke="#6DD400" stroke-width="4" fill="#F1F1F1" fill-rule="evenodd" x="2" y="2" width="60" height="60" rx="30"></rect>
-            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
-                <tspan x="26.9946289" y="34">4</tspan>
-            </text>
-        </g>
-        <line x1="232" y1="760.341797" x2="184" y2="808.018982" id="Path" stroke="#979797" stroke-width="1"></line>
-        <line x1="232" y1="760.341797" x2="184" y2="808.018982" id="Path" stroke="#979797" stroke-width="1"></line>
-        <line x1="143.5" y1="864.341797" x2="128" y2="896.5" id="Path" stroke="#979797" stroke-width="1"></line>
-        <line x1="328" y1="760.341797" x2="280" y2="808.018982" id="Path" stroke="#979797" stroke-width="1" transform="translate(304, 784.1804) scale(-1, 1) translate(-304, -784.1804)"></line>
-        <text id="0" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
             <tspan x="732.663086" y="739">0</tspan>
         </text>
         <text id="1" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
             <tspan x="636.663086" y="835">1</tspan>
         </text>
-        <g id="node" transform="translate(752, 704)" xlink:href="#path-20">
+        <text id="2" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
+            <tspan x="924.663086" y="835">2</tspan>
+        </text>
+        <text id="3" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
+            <tspan x="604.663086" y="971">3</tspan>
+        </text>
+        <g id="node" transform="translate(752, 704)" xlink:href="#path-18">
             <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
             <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
                 <tspan x="26.9946289" y="34">3</tspan>
             </text>
         </g>
-        <g id="node" transform="translate(656, 800)" xlink:href="#path-21">
+        <g id="node" transform="translate(656, 800)" xlink:href="#path-19">
             <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
             <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
                 <tspan x="26.9946289" y="34">2</tspan>
             </text>
         </g>
+        <g id="node" transform="translate(848, 800)" xlink:href="#path-20">
+            <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#F1F1F1" fill-rule="evenodd" x="1" y="1" width="62" height="62" rx="31"></rect>
+            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
+                <tspan x="26.9946289" y="34">1</tspan>
+            </text>
+        </g>
+        <g id="node" transform="translate(608, 896)" xlink:href="#path-21">
+            <rect id="Rectangle" stroke="#007AFF" stroke-width="4" fill="#F1F1F1" fill-rule="evenodd" x="2" y="2" width="60" height="60" rx="30"></rect>
+            <text id="number" font-family="Helvetica" font-size="18" font-weight="normal" fill="#000000">
+                <tspan x="26.9946289" y="34">4</tspan>
+            </text>
+        </g>
         <line x1="760" y1="760.341797" x2="712" y2="808.018982" id="Path" stroke="#979797" stroke-width="1"></line>
         <line x1="760" y1="760.341797" x2="712" y2="808.018982" id="Path" stroke="#979797" stroke-width="1"></line>
+        <line x1="671.5" y1="864.341797" x2="656" y2="896.5" id="Path" stroke="#979797" stroke-width="1"></line>
+        <line x1="856" y1="760.341797" x2="808" y2="808.018982" id="Path" stroke="#979797" stroke-width="1" transform="translate(832, 784.1804) scale(-1, 1) translate(-832, -784.1804)"></line>
         <text id="0" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
             <tspan x="732.663086" y="355">0</tspan>
         </text>
@@ -245,9 +249,20 @@
         <line x1="760" y1="376.341797" x2="712" y2="424.018982" id="Path" stroke="#979797" stroke-width="1"></line>
         <line x1="671.5" y1="480.341797" x2="656" y2="512.5" id="Path" stroke="#979797" stroke-width="1"></line>
         <line x1="856" y1="376.341797" x2="808" y2="424.018982" id="Path" stroke="#979797" stroke-width="1" transform="translate(832, 400.1804) scale(-1, 1) translate(-832, -400.1804)"></line>
-        <text id="2" font-family="Helvetica-Bold, Helvetica" font-size="12" font-weight="bold" fill="#007AFF">
-            <tspan x="924.663086" y="843">2</tspan>
+        <text id="Swap-to-Last" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#32ADE6">
+            <tspan x="735.160156" y="655">Swap to Last</tspan>
         </text>
-        <line x1="856" y1="760.341797" x2="808" y2="808.018982" id="Path" stroke="#979797" stroke-width="1" transform="translate(832, 784.1804) scale(-1, 1) translate(-832, -784.1804)"></line>
+        <text id="Create-Heap" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#32ADE6">
+            <tspan x="209.3125" y="271">Create Heap</tspan>
+        </text>
+        <text id="Remove-from-Heap" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#32ADE6">
+            <tspan x="183.089844" y="655">Remove from Heap</tspan>
+        </text>
+        <text id="Find-Max" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#32ADE6">
+            <tspan x="748.832031" y="271">Find Max</tspan>
+        </text>
+        <path d="M513,440 L543,440 C543.552285,440 544,439.552285 544,439 L544,426 C544,425.447715 544.447715,425 545,425 C545.21637,425 545.426904,425.070178 545.6,425.2 L574.933333,447.2 C575.375161,447.531371 575.464704,448.158172 575.133333,448.6 C575.076479,448.675806 575.009139,448.743146 574.933333,448.8 L545.6,470.8 C545.158172,471.131371 544.531371,471.041828 544.2,470.6 C544.070178,470.426904 544,470.21637 544,470 L544,457 C544,456.447715 543.552285,456 543,456 L513,456 C512.447715,456 512,455.552285 512,455 L512,441 C512,440.447715 512.447715,440 513,440 Z" id="Path" fill="#32ADE6" fill-rule="evenodd"></path>
+        <path d="M761,616 L791,616 C791.552285,616 792,615.552285 792,615 L792,602 C792,601.447715 792.447715,601 793,601 C793.21637,601 793.426904,601.070178 793.6,601.2 L822.933333,623.2 C823.375161,623.531371 823.464704,624.158172 823.133333,624.6 C823.076479,624.675806 823.009139,624.743146 822.933333,624.8 L793.6,646.8 C793.158172,647.131371 792.531371,647.041828 792.2,646.6 C792.070178,646.426904 792,646.21637 792,646 L792,633 C792,632.447715 791.552285,632 791,632 L761,632 C760.447715,632 760,631.552285 760,631 L760,617 C760,616.447715 760.447715,616 761,616 Z" id="Path" fill="#32ADE6" fill-rule="evenodd" transform="translate(792, 624) rotate(90) translate(-792, -624)"></path>
+        <path d="M513,824 L543,824 C543.552285,824 544,823.552285 544,823 L544,810 C544,809.447715 544.447715,809 545,809 C545.21637,809 545.426904,809.070178 545.6,809.2 L574.933333,831.2 C575.375161,831.531371 575.464704,832.158172 575.133333,832.6 C575.076479,832.675806 575.009139,832.743146 574.933333,832.8 L545.6,854.8 C545.158172,855.131371 544.531371,855.041828 544.2,854.6 C544.070178,854.426904 544,854.21637 544,854 L544,841 C544,840.447715 543.552285,840 543,840 L513,840 C512.447715,840 512,839.552285 512,839 L512,825 C512,824.447715 512.447715,824 513,824 Z" id="Path" fill="#32ADE6" fill-rule="evenodd" transform="translate(544, 832) scale(-1, 1) translate(-544, -832)"></path>
     </g>
 </svg>
