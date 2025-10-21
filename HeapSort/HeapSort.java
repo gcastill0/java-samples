@@ -13,47 +13,41 @@ class TreeNode {
     }
 
     void addNode(TreeNode newNode) {
+        newNode.id++;
         if (isNull(this.left)) {
             this.left = newNode;
-            this.left.id = this.id + 1 + newNode.id;
-            System.out.println("New Node: " + newNode.id + "\tThis Node ID: " + this.id + "\t L_Node ID: " + (this.left.id) + "\tVal: " + newNode.val);
+            this.left.id = newNode.id;
         } else if (isNull(this.right)) {
             this.right = newNode;
-            this.right.id = this.left.id + 1 + newNode.id;
-            System.out.println("New Node: " + newNode.id + "\tThis Node ID: " + this.id + "\t R_Node ID: " + (this.right.id) + "\tVal: " + newNode.val);
+            this.right.id = this.left.id + 1;
         } else {
-            newNode.id++;
+            newNode.id = this.right.id;
             this.left.addNode(newNode);
         }
     }
 
     void printTree() {
+        System.out.println(this.id + "\t" + this.val);
 
-        // System.out.println();
-        // System.out.println(this.id + "\t" + this.val + "\n");
-
-        if (!isNull(this.left)) {
-            System.out.println(this.id + ": " + this.val + "\t" + this.left.id + ": " + this.left.val + "\n");
-        }
-
-        if (!isNull(this.right)) {
-            System.out.println(this.id + ": " + this.val + "\t" + this.right.id + ": " + this.right.val + "\n");
-            // this.right.printTree();
-        }
-
-        if (!isNull(this.right)) {
-            this.right.printTree();
-        } 
-
-        if (!isNull(this.left)) {
+        if (isActive(this.right)) {
+            // System.out.println(this.left.id + "\t" + this.left.val);
+            // System.out.println(this.right.id + "\t" + this.right.val);
             this.left.printTree();
-        } 
-
+            this.right.printTree();
+        } else
+        if (isActive(this.left)) {
+            // System.out.println(this.left.id + "\t" + this.left.val);
+            this.left.printTree();
+        }
 
     }
 
     boolean isNull(TreeNode node) {
         return node == null ? true : false;
+    }
+
+    boolean isActive(TreeNode node) {
+        return node == null ? false : true;
     }
 
 }
@@ -66,21 +60,30 @@ public class HeapSort {
             return;
         }
 
-        TreeNode tree = new TreeNode(array[0]);
+        int max_value = array[0];
+
+        TreeNode tree = new TreeNode(max_value);
 
         System.out.println();
         System.out.println();
 
         for (int i = 1; i < array.length; i += 2) {
+
+            int left_value = Integer.MIN_VALUE;
+            int right_value = Integer.MIN_VALUE;
+
             if (i < array.length) {
-                tree.addNode(new TreeNode(array[i]));
+                left_value = array[i];
+                tree.addNode(new TreeNode(left_value));
             }
             if (i + 1 < array.length) {
-                tree.addNode(new TreeNode(array[i + 1]));
+                right_value = array[i + 1];
+                tree.addNode(new TreeNode(right_value));
             }
+
         }
 
-        // tree.printTree();
+        tree.printTree();
 
         System.out.println();
         System.out.println();
@@ -103,6 +106,9 @@ public class HeapSort {
     public static void main(String[] args) {
 
         int[] nums = { 7, 2, 5, 6, 1, 3, 4 };
+
+        System.out.println();
+        System.out.println();
 
         System.out.print("Before Sort:\t");
         displayArray(nums);
