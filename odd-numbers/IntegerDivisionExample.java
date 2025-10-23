@@ -12,10 +12,11 @@ public class IntegerDivisionExample {
      * 
      * NOTE that we say "truncate", not "round-off" 
      * 
-     * For instance, given a number = 5, 
+     * For instance, given a number of 5: 
      * 5 - ((5/2) * 2) -> 5 - (2 * 2) -> 5 - 4 -> 1.
      * 
-     * Also, number = 4 
+     * Also, when the number is 4:
+     *  
      * 4 - ((4/2) * 2) -> 4 - (2*2) -> 4 - 4 -> 0
      * 
      * If the value difference is zero, then the
