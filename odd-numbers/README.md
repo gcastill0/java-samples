@@ -35,22 +35,23 @@ Input: A list of numbers.
 
 Calculation table:
 
-| Number | Half | Truncated | Whole     | Evaluation | Difference | Boolean |
-| ------ | ---- | --------- | --------- | ---------- | ---------- | ------- |
-| 7 | 7/2 = 3.5 | 3         | 3 * 2 = 6 | 7 - 6 = 1  | 1          | False   |
-| 2 | 2/2 = 1   | 1         | 1 * 2 = 2 | 2 - 2 = 0  | 0          | True    |
-| 5 | 5/2 = 2.5 | 2         | 2 * 2 = 4 | 5 - 4 = 1  | 1          | False   |
-| 6 | 6/2 = 3   | 3         | 3 * 2 = 6 | 6 - 6 = 0  | 0          | True    |
-| 1 | 1/2 = 0.5 | 0         | 0 * 2 = 0 | 1 - 0 = 1  | 1          | False   |
-| 3 | 3/2 = 1.5 | 1         | 1 * 2 = 2 | 3 - 2 = 1  | 1          | False   |
-| 4 | 4/2 = 2   | 2         | 2 * 2 = 4 | 4 - 4 = 0  | 0          | True    |
+| Number | Half | Truncated | Whole     | Evaluation | Difference | Boolean | Even/Odd  |
+| ------ | ---- | --------- | --------- | ---------- | ---------- | ------- | --------- |
+| 7 | 7/2 = 3.5 | 3         | 3 * 2 = 6 | 7 - 6 = 1  | 1          | False   | 7 is odd  |
+| 2 | 2/2 = 1   | 1         | 1 * 2 = 2 | 2 - 2 = 0  | 0          | True    | 2 is even |
+| 5 | 5/2 = 2.5 | 2         | 2 * 2 = 4 | 5 - 4 = 1  | 1          | False   | 5 is odd  |
+| 6 | 6/2 = 3   | 3         | 3 * 2 = 6 | 6 - 6 = 0  | 0          | True    | 6 is even |
+| 1 | 1/2 = 0.5 | 0         | 0 * 2 = 0 | 1 - 0 = 1  | 1          | False   | 1 is odd  |
+| 3 | 3/2 = 1.5 | 1         | 1 * 2 = 2 | 3 - 2 = 1  | 1          | False   | 3 is odd  |
+| 4 | 4/2 = 2   | 2         | 2 * 2 = 4 | 4 - 4 = 0  | 0          | True    | 4 is even |
 
 ---
 
 This should be the end result:
 
 ```bash
-🚀 java IntegerDivisionExample.java         
+🚀 java IntegerDivisionExample.java 
+        
 7 is odd
 2 is even
 5 is odd
