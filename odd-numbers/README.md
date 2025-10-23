@@ -4,7 +4,7 @@ Use the logic of `number - [ ( number / 2 ) * 2 )`
 where the division of an integer truncates
 the decimal value, givin a whole number.
 
-NOTE that we say "truncate", not "round-off" 
+NOTE that we say "truncate", not "round-off."  Integer truncation means Java drops the decimal part and keeps only the whole-number part. For instance, 3.1415 truncates to 3. The number 3.7890 truncates to 3.
 
 For instance, given a number of 5:
 
