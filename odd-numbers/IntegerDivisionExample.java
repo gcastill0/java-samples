@@ -8,7 +8,11 @@ public class IntegerDivisionExample {
      * 
      * Use the logic of number - [ ( number / 2 ) * 2 )
      * where the division of an integer truncates
-     * the value. For instance, given a number = 5, 
+     * the decimal value, givin a whole number.
+     * 
+     * NOTE that we say "truncate", not "round-off" 
+     * 
+     * For instance, given a number = 5, 
      * 5 - ((5/2) * 2) -> 5 - (2 * 2) -> 5 - 4 -> 1.
      * 
      * Also, number = 4 
