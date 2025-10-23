@@ -1,11 +1,22 @@
 public class IntegerDivisionExample {
-    public static void main(String[] args) {
-        int number = 5;
-        int result = number / 2; // result will be 2 (2.5 is truncated to 2)
-        System.out.println("Result of integer division: " + result); 
 
-        int anotherNumber = 6;
-        int anotherResult = anotherNumber / 2; // anotherResult will be 3
-        System.out.println("Result of integer division: " + anotherResult);
+    public static boolean isEven(int number) {
+
+        int half = number / 2;
+        int whole = half * 2;
+        int diff = number - whole;
+
+        if (diff == 1) return false;
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        int[] numbers  = { 7, 2, 5, 6, 1, 3, 4 };
+
+        for (int number: numbers) {
+            System.out.println("Is " + number + " even? -> " + isEven(number));
+        }
     }
 }
