@@ -1,4 +1,6 @@
-Use the logic of number - [ ( number / 2 ) * 2 )
+## Print Even or Odd Numbers
+
+Use the logic of `number - [ ( number / 2 ) * 2 )`
 where the division of an integer truncates
 the decimal value, givin a whole number.
 
@@ -51,7 +53,7 @@ This should be the end result:
 
 ```bash
 🚀 java IntegerDivisionExample.java 
-        
+
 7 is odd
 2 is even
 5 is odd
