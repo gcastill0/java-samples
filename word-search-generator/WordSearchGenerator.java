@@ -14,24 +14,27 @@ public class WordSearchGenerator {
                 BufferedReader reader = new BufferedReader(fileInput)) {
                     String line;
                     while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
-                }
+                        System.out.println(line);
+                    } 
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
     }
 
     public static String getFileName() throws IOException {
-
         String defaultFileName = "input.txt";
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        try {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
             System.out.print("Please enter the file name: ");
             String fileName = br.readLine();
-            String userFileName = ( fileName == null || fileName.trim().isEmpty() ) ? defaultFileName : fileName;
-            return userFileName ;
+            
+            if ( fileName == null || fileName.trim().isEmpty() ) {
+                System.out.println("File is empty. Using default file " + defaultFileName);
+                fileName = defaultFileName;
+            }
+            
+            return fileName ;
+
         } catch (IOException e) {
             System.err.println("Error getting file name: " + e.getMessage());
             return defaultFileName;
