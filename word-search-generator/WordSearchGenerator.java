@@ -13,20 +13,85 @@ public class WordSearchGenerator {
         int min = 10;
         int max = 20;
 
+        // User inputs
         String fileName = readFileName("Please enter the file name: ", br);
-        Integer rows    = readIntNumber("Enter the number of rows (10-20): ", min, max, br);
-        Integer cols    = readIntNumber("Enter the number of columns (10-20): ", min, max, br);
+        int rows = readIntNumber("Enter the number of rows (10-20): ", min, max, br);
+        int cols = readIntNumber("Enter the number of columns (10-20): ", min, max, br);
+
+        // Data
+        String wordsFromFile[] = getWordArray(fileName);
+        char wordsInPuzzle[][] = new char[wordsFromFile.length][];
+
+        // Assing the array of letters to the potential words in the puzzle
+        // letters[0] -> ["t","h","i","s"]
+        // letters[1] -> ["t","e","s","t"]
+        // letters[2] -> ["f","i","l","e"]
+        // letters[3] -> ["c","o","n","t","a","i","n","s"]
+        // letters[4] -> ["s","e","v","e","n"]
+        // letters[5] -> ["w","o","r","d","s"]
+        // letters[6] -> ["i","n","s","i","d","e"]
+
+        for (int i = 0; i < wordsInPuzzle.length; i++) {
+            String word = wordsFromFile[i];
+            char letters[] = getLetterArray(word);
+            wordsInPuzzle[i] = letters;
+        }
+
+        // Test the array
+        for (int i = 0; i < wordsInPuzzle.length; i++) {
+            for (int j = 0; j < wordsInPuzzle[i].length; j++) {
+                char letter = wordsInPuzzle[i][j];
+                System.out.print(letter);
+            }
+            System.err.println();
+        }
+
+        // Grid data
+        int grid[][] = new int[rows][cols];
+
+    }
+
+    public static char[] getLetterArray(String word) {
+        char letters[] = new char[word.length()];
+
+        for (int i = 0; i < word.length(); i++) {
+            char letter = word.charAt(i);
+            letters[i] = Character.toUpperCase(letter);
+        }
+
+        return letters;
+    }
+
+    public static String[] getWordArray(String fileName) throws IOException {
+        int wordArrayLength = 0;
 
         try (
                 FileReader fileInput = new FileReader(fileName);
                 BufferedReader reader = new BufferedReader(fileInput)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                wordArrayLength++;
             }
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
+
+        String wordArray[] = new String[wordArrayLength];
+
+        try (
+                FileReader fileInput = new FileReader(fileName);
+                BufferedReader reader = new BufferedReader(fileInput)) {
+            String line;
+            int index = 0;
+            while ((line = reader.readLine()) != null) {
+                wordArray[index] = line;
+                index++;
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+
+        return wordArray;
     }
 
     public static String readFileName(String message, BufferedReader br) throws IOException {
@@ -57,7 +122,9 @@ public class WordSearchGenerator {
             try {
                 System.out.print(message);
                 number = Integer.parseInt(br.readLine());
-                if ( number >= min && number <= max ) break;
+                if (number >= min && number <= max)
+                    break;
+                System.out.format("Entere a value between %d and %d.\n", min, max);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid whole number.");
             }
