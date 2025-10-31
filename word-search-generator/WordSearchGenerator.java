@@ -7,11 +7,15 @@ public class WordSearchGenerator {
 
     public static void main(String[] args) throws IOException {
 
+        // Use a single BufferedReader
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        int min = 10;
+        int max = 20;
+
         String fileName = readFileName("Please enter the file name: ", br);
-        Integer rows    = readIntNumber("Enter the number of rows: ", br);
-        Integer cols    = readIntNumber("Enter the number of columns: ", br);
+        Integer rows    = readIntNumber("Enter the number of rows (10-20): ", min, max, br);
+        Integer cols    = readIntNumber("Enter the number of columns (10-20): ", min, max, br);
 
         try (
                 FileReader fileInput = new FileReader(fileName);
@@ -45,7 +49,7 @@ public class WordSearchGenerator {
         }
     }
 
-    public static int readIntNumber(String message, BufferedReader br) throws IOException {
+    public static int readIntNumber(String message, int min, int max, BufferedReader br) throws IOException {
 
         int number = -99;
 
@@ -53,7 +57,7 @@ public class WordSearchGenerator {
             try {
                 System.out.print(message);
                 number = Integer.parseInt(br.readLine());
-                break;
+                if ( number >= min && number <= max ) break;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid whole number.");
             }
