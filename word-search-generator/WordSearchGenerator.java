@@ -23,13 +23,13 @@ public class WordSearchGenerator {
         char wordsInPuzzle[][] = new char[wordsFromFile.length][];
 
         // Assing the array of letters to the potential words in the puzzle
-        // letters[0] -> ["t","h","i","s"]
-        // letters[1] -> ["t","e","s","t"]
-        // letters[2] -> ["f","i","l","e"]
-        // letters[3] -> ["c","o","n","t","a","i","n","s"]
-        // letters[4] -> ["s","e","v","e","n"]
-        // letters[5] -> ["w","o","r","d","s"]
-        // letters[6] -> ["i","n","s","i","d","e"]
+        // letters[0] -> ['t','h','i','s']
+        // letters[1] -> ['t','e','s','t']
+        // letters[2] -> ['f','i','l','e']
+        // letters[3] -> ['c','o','n','t','a','i','n','s']
+        // letters[4] -> ['s','e','v','e','n']
+        // letters[5] -> ['w','o','r','d','s']
+        // letters[6] -> ['i','n','s','i','d','e']
 
         for (int i = 0; i < wordsInPuzzle.length; i++) {
             String word = wordsFromFile[i];
@@ -41,14 +41,31 @@ public class WordSearchGenerator {
         for (int i = 0; i < wordsInPuzzle.length; i++) {
             for (int j = 0; j < wordsInPuzzle[i].length; j++) {
                 char letter = wordsInPuzzle[i][j];
-                System.out.print(letter);
+                System.out.print(letter + " ");
             }
             System.err.println();
         }
 
         // Grid data
-        int grid[][] = new int[rows][cols];
+        char grid[][] = new char[rows][cols];
 
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = ' ';
+            }
+        }
+    }
+
+    public static boolean isGridSpaceAvailable(char grid[][], int targets[][]) {
+        boolean availability = true;
+
+        for (int i = 0; i < targets.length; i++) {
+            for (int j = 0; j < targets[i].length; j++) {
+                if (grid[i][j] != ' ') availability = false;
+            }
+        }
+
+        return availability;
     }
 
     public static char[] getLetterArray(String word) {
