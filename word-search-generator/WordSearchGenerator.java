@@ -19,24 +19,45 @@ public class WordSearchGenerator {
         int rows = readIntNumber("Enter the number of rows (10-20): ", min, max, br);
         int cols = readIntNumber("Enter the number of columns (10-20): ", min, max, br);
 
-        // Data
+        // Data from file is organized as follows:
+
+        // wordsInPuzzle[0] -> "this"
+        // wordsInPuzzle[1] -> "test"
+        // wordsInPuzzle[2] -> "file"
+        // wordsInPuzzle[3] -> "contains"
+        // wordsInPuzzle[4] -> "seven"
+        // wordsInPuzzle[5] -> "words"
+        // wordsInPuzzle[6] -> "inside"
+
         String wordsFromFile[] = getWordArray(fileName);
-        char wordsInPuzzle[][] = new char[wordsFromFile.length][];
 
         // Assing the array of letters to the potential words in the puzzle
-        // letters[0] -> ['t','h','i','s']
-        // letters[1] -> ['t','e','s','t']
-        // letters[2] -> ['f','i','l','e']
-        // letters[3] -> ['c','o','n','t','a','i','n','s']
-        // letters[4] -> ['s','e','v','e','n']
-        // letters[5] -> ['w','o','r','d','s']
-        // letters[6] -> ['i','n','s','i','d','e']
+        // wordsInPuzzle[0] -> ['t','h','i','s']
+        // wordsInPuzzle[1] -> ['t','e','s','t']
+        // wordsInPuzzle[2] -> ['f','i','l','e']
+        // wordsInPuzzle[3] -> ['c','o','n','t','a','i','n','s']
+        // wordsInPuzzle[4] -> ['s','e','v','e','n']
+        // wordsInPuzzle[5] -> ['w','o','r','d','s']
+        // wordsInPuzzle[6] -> ['i','n','s','i','d','e']
+
+        char wordsInPuzzle[][] = new char[wordsFromFile.length][];
 
         for (int i = 0; i < wordsInPuzzle.length; i++) {
             String word = wordsFromFile[i];
             char letters[] = getLetterArray(word);
             wordsInPuzzle[i] = letters;
         }
+
+        // Sort the array becuse longer length words are more difficult to place
+        // wordsInPuzzle[0] -> ['c','o','n','t','a','i','n','s']
+        // wordsInPuzzle[1] -> ['i','n','s','i','d','e']
+        // wordsInPuzzle[2] -> ['s','e','v','e','n']
+        // wordsInPuzzle[3] -> ['w','o','r','d','s']
+        // wordsInPuzzle[4] -> ['t','e','s','t']
+        // wordsInPuzzle[5] -> ['f','i','l','e']
+        // wordsInPuzzle[6] -> ['t','h','i','s']
+
+        sortWordArray(wordsInPuzzle);
 
         // Test the array
         for (int i = 0; i < wordsInPuzzle.length; i++) {
@@ -58,7 +79,7 @@ public class WordSearchGenerator {
 
         for (int i = 0; i < wordsInPuzzle.length; i++) {
             int index = getRandomIndex(grid);
-            getVerticalTargets(index, rows, cols, wordsInPuzzle[i]);
+            getHorizonalTargets(index, rows, cols, wordsInPuzzle[i]);
         }
     }
 
@@ -126,8 +147,10 @@ public class WordSearchGenerator {
             int col = index % cols;
             int row = index / rows;
 
-            if ( col < 0 || col >= cols || row < 0 || row >= rows) return availability;
-            if (grid[row][col] == ' ') availability = true;
+            if (col < 0 || col >= cols || row < 0 || row >= rows)
+                return availability;
+            if (grid[row][col] == ' ')
+                availability = true;
         }
 
         return availability;
@@ -142,6 +165,34 @@ public class WordSearchGenerator {
         }
 
         return letters;
+    }
+
+    public static void sortWordArray(String wordsFromFile[]) {
+
+        for (int i = 0; i < wordsFromFile.length - 1; i++) {
+            for (int j = i + 1; j < wordsFromFile.length; j++) {
+                if (wordsFromFile[i].length() < wordsFromFile[j].length()) {
+                    String temp = wordsFromFile[i];
+                    wordsFromFile[i] = wordsFromFile[j];
+                    wordsFromFile[j] = temp;
+                }
+            }
+        }
+
+    }
+
+    public static void sortWordArray(char wordsInPuzzle[][]) {
+
+        for (int i = 0; i < wordsInPuzzle.length - 1; i++) {
+            for (int j = i + 1; j < wordsInPuzzle.length; j++) {
+                if (wordsInPuzzle[i].length < wordsInPuzzle[j].length) {
+                    char temp[] = wordsInPuzzle[i];
+                    wordsInPuzzle[i] = wordsInPuzzle[j];
+                    wordsInPuzzle[j] = temp;
+                }
+            }
+        }
+
     }
 
     public static String[] getWordArray(String fileName) throws IOException {
