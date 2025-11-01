@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public class WordSearchGenerator {
 
@@ -10,8 +11,8 @@ public class WordSearchGenerator {
         // Use a single BufferedReader
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int min = 10;
-        int max = 20;
+        int min = 5;
+        int max = 10;
 
         // User inputs
         String fileName = readFileName("Please enter the file name: ", br);
@@ -54,15 +55,79 @@ public class WordSearchGenerator {
                 grid[i][j] = ' ';
             }
         }
+
+        for (int i = 0; i < wordsInPuzzle.length; i++) {
+            int index = getRandomIndex(grid);
+            getVerticalTargets(index, rows, cols, wordsInPuzzle[i]);
+        }
     }
 
-    public static boolean isGridSpaceAvailable(char grid[][], int targets[][]) {
-        boolean availability = true;
+    public static int getRandomIndex(char grid[][]) {
+
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int min = 0;
+        int max = rows * cols;
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(max - min + 1) + min;
+
+        return randomIndex;
+    }
+
+    public static int[] getHorizonalTargets(int index, int rows, int cols, char letters[]) {
+        int targets[] = new int[letters.length];
+
+        int col = index % cols;
+        int row = index / rows;
+
+        int proof = row * cols + col;
+
+        System.out.print("Target Index: " + index + "\tcol: " + col + "\trow: " + row + "\tproof: " + proof + "\t");
+
+        for (int i = 0; i < letters.length; i++, col++) {
+            targets[i] = row * cols + col;
+            System.out.print(row + ":" + col + " \tTarget: " + targets[i] + " -> " + letters[i] + " ");
+        }
+
+        System.out.println();
+
+        return targets;
+    }
+
+    public static int[] getVerticalTargets(int index, int rows, int cols, char letters[]) {
+        int targets[] = new int[letters.length];
+
+        int col = index % cols;
+        int row = index / rows;
+
+        int proof = row * cols + col;
+
+        System.out.println("Target Index: " + index + "\tcol: " + col + "\trow: " + row + "\tproof: " + proof + "\t");
+
+        for (int i = 0; i < letters.length; i++, row++) {
+            targets[i] = row * cols + col;
+            System.out.print(row + ":" + col + " -> " + letters[i] + " Target: " + targets[i] + "\t");
+        }
+
+        System.out.println();
+        System.out.println();
+
+        return targets;
+    }
+
+    public static boolean isGridSpaceAvailable(char grid[][], int targets[]) {
+        boolean availability = false;
+        int rows = grid.length;
+        int cols = grid[0].length;
 
         for (int i = 0; i < targets.length; i++) {
-            for (int j = 0; j < targets[i].length; j++) {
-                if (grid[i][j] != ' ') availability = false;
-            }
+            int index = targets[i];
+            int col = index % cols;
+            int row = index / rows;
+
+            if ( col < 0 || col >= cols || row < 0 || row >= rows) return availability;
+            if (grid[row][col] == ' ') availability = true;
         }
 
         return availability;
