@@ -25,57 +25,29 @@ public class WordSearchGenerator {
         int cols = 20;//readIntNumber("Enter the number of columns (10-20): ", min, max, br);
 
         // Data from file is organized as follows:
-        // wordsFromFile[0] -> "this"
-        // wordsFromFile[1] -> "test"
-        // wordsFromFile[2] -> "file"
-        // wordsFromFile[3] -> "contains"
-        // wordsFromFile[4] -> "seven"
-        // wordsFromFile[5] -> "words"
-        // wordsFromFile[6] -> "inside"
+        // wordsFromFile[0] -> "THIS"
+        // wordsFromFile[1] -> "TEST"
+        // wordsFromFile[2] -> "FILE"
+        // wordsFromFile[3] -> "CONTAINS"
+        // wordsFromFile[4] -> "SEVEN"
+        // wordsFromFile[5] -> "WORDS"
+        // wordsFromFile[6] -> "INDIDE"
 
         String wordsFromFile[] = getWordArray(fileName);
 
-        // Assing the array of letters to the potential words in the puzzle
-        // wordsInPuzzle[0] -> ['t','h','i','s']
-        // wordsInPuzzle[1] -> ['t','e','s','t']
-        // wordsInPuzzle[2] -> ['f','i','l','e']
-        // wordsInPuzzle[3] -> ['c','o','n','t','a','i','n','s']
-        // wordsInPuzzle[4] -> ['s','e','v','e','n']
-        // wordsInPuzzle[5] -> ['w','o','r','d','s']
-        // wordsInPuzzle[6] -> ['i','n','s','i','d','e']
-
-        char wordsInPuzzle[][] = new char[wordsFromFile.length][];
-
-        for (int i = 0; i < wordsInPuzzle.length; i++) {
-            String word = wordsFromFile[i];
-            char letters[] = getLetterArray(word);
-            wordsInPuzzle[i] = letters;
-        }
-
         // Sort the array becuse longer length words are more difficult to place
-        // wordsInPuzzle[0] -> ['c','o','n','t','a','i','n','s']
-        // wordsInPuzzle[1] -> ['i','n','s','i','d','e']
-        // wordsInPuzzle[2] -> ['s','e','v','e','n']
-        // wordsInPuzzle[3] -> ['w','o','r','d','s']
-        // wordsInPuzzle[4] -> ['t','e','s','t']
-        // wordsInPuzzle[5] -> ['f','i','l','e']
-        // wordsInPuzzle[6] -> ['t','h','i','s']
+        // wordsFromFile[0] -> "CONTAINS"
+        // wordsFromFile[1] -> "INDIDE"
+        // wordsFromFile[2] -> "SEVEN"
+        // wordsFromFile[3] -> "WORDS"
+        // wordsFromFile[4] -> "FILE"
+        // wordsFromFile[5] -> "TEST"
+        // wordsFromFile[6] -> "THIS"
 
         sortWordArray(wordsFromFile);
-        sortWordArray(wordsInPuzzle);
 
-        // Test the array
-        for (int i = 0; i < wordsInPuzzle.length; i++) {
-            for (int j = 0; j < wordsInPuzzle[i].length; j++) {
-                char letter = wordsInPuzzle[i][j];
-                System.out.print(letter + " ");
-            }
-            System.err.println();
-        }
-
-        // Grid data
+        // Grid data. Start with empty characters.
         char grid[][] = new char[rows][cols];
-
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 grid[i][j] = ' ';
@@ -85,8 +57,8 @@ public class WordSearchGenerator {
         Random random = new Random();
 
         for (int i = 0; i < wordsFromFile.length; i++) {
-            int index = randomIndexPosition(grid, wordsFromFile[i]);
             String word = wordsFromFile[i];
+            int index = randomIndexPosition(grid, word);
             int mode = random.nextInt(4);
             boolean fit = false;
 
@@ -304,86 +276,6 @@ public class WordSearchGenerator {
         return fit;
     }
 
-    // public static int[] getHorizonalTargets(int index, char grid[][], String
-    // word) {
-    // int targets[] = new int[word.length()];
-    // int rows = grid[0].length;
-    // int cols = grid[0].length;
-
-    // int row = index / rows;
-    // int col = index % cols;
-
-    // // If we are moving horizontally, the row does not change
-
-    // for (int i = 0; i < word.length(); i++, col++) {
-    // char letter = word.charAt(i);
-    // targets[i] = row * cols + col;
-    // System.out.println("[" + row + "][" + col + "] = " + letter);
-    // }
-
-    // return targets;
-    // }
-
-    public static int[] getHorizonalTargets(int index, int rows, int cols, char letters[]) {
-        int targets[] = new int[letters.length];
-
-        int col = index % cols;
-        int row = index / rows;
-
-        int proof = row * cols + col;
-
-        System.out.print("Target Index: " + index + "\tcol: " + col + "\trow: " + row + "\tproof: " + proof + "\t");
-
-        for (int i = 0; i < letters.length; i++, col++) {
-            targets[i] = row * cols + col;
-            System.out.print(row + ":" + col + " \tTarget: " + targets[i] + " -> " + letters[i] + " ");
-        }
-
-        System.out.println();
-
-        return targets;
-    }
-
-    public static int[] getVerticalTargets(int index, int rows, int cols, char letters[]) {
-        int targets[] = new int[letters.length];
-
-        int col = index % cols;
-        int row = index / rows;
-
-        int proof = row * cols + col;
-
-        System.out.println("Target Index: " + index + "\tcol: " + col + "\trow: " + row + "\tproof: " + proof + "\t");
-
-        for (int i = 0; i < letters.length; i++, row++) {
-            targets[i] = row * cols + col;
-            System.out.print(row + ":" + col + " -> " + letters[i] + " Target: " + targets[i] + "\t");
-        }
-
-        System.out.println();
-        System.out.println();
-
-        return targets;
-    }
-
-    public static boolean isGridSpaceAvailable(char grid[][], int targets[]) {
-        boolean availability = false;
-        int rows = grid.length;
-        int cols = grid[0].length;
-
-        for (int i = 0; i < targets.length; i++) {
-            int index = targets[i];
-            int col = index % cols;
-            int row = index / rows;
-
-            if (col < 0 || col >= cols || row < 0 || row >= rows)
-                return availability;
-            if (grid[row][col] == ' ')
-                availability = true;
-        }
-
-        return availability;
-    }
-
     public static char[] getLetterArray(String word) {
         char letters[] = new char[word.length()];
 
@@ -403,20 +295,6 @@ public class WordSearchGenerator {
                     String temp = wordsFromFile[i];
                     wordsFromFile[i] = wordsFromFile[j];
                     wordsFromFile[j] = temp;
-                }
-            }
-        }
-
-    }
-
-    public static void sortWordArray(char wordsInPuzzle[][]) {
-
-        for (int i = 0; i < wordsInPuzzle.length - 1; i++) {
-            for (int j = i + 1; j < wordsInPuzzle.length; j++) {
-                if (wordsInPuzzle[i].length < wordsInPuzzle[j].length) {
-                    char temp[] = wordsInPuzzle[i];
-                    wordsInPuzzle[i] = wordsInPuzzle[j];
-                    wordsInPuzzle[j] = temp;
                 }
             }
         }
