@@ -20,9 +20,9 @@ public class WordSearchGenerator {
         int max = 20;
 
         // User inputs
-        String fileName = "input.txt";//readFileName("Please enter the file name: ", br);
-        int rows = 20;//readIntNumber("Enter the number of rows (10-20): ", min, max, br);
-        int cols = 20;//readIntNumber("Enter the number of columns (10-20): ", min, max, br);
+        String fileName = "input.txt";// readFileName("Please enter the file name: ", br);
+        int rows = 10;// readIntNumber("Enter the number of rows (10-20): ", min, max, br);
+        int cols = 10;// readIntNumber("Enter the number of columns (10-20): ", min, max, br);
 
         // Data from file is organized as follows:
         // wordsFromFile[0] -> "THIS"
@@ -62,23 +62,31 @@ public class WordSearchGenerator {
             int mode = random.nextInt(4);
             boolean fit = false;
 
+            String wordInGrid = word;
+
+            int choice = random.nextInt(2); // Generates 0 or 1
+            if (choice == 0) {
+                StringBuilder stringBuilder = new StringBuilder(word);
+                wordInGrid = stringBuilder.reverse().toString();
+            }
+
             switch (mode) {
                 case 0:
-                    fit = getVerticalTargets(index, grid, word);
+                    fit = getVerticalTargets(index, grid, wordInGrid);
                     break;
                 case 1:
-                    fit = getHorizontalTargets(index, grid, word);
+                    fit = getHorizontalTargets(index, grid, wordInGrid);
                     break;
                 case 2:
-                    fit = getDiagonalTargets(index, grid, word);
+                    fit = getDiagonalTargetsRL(index, grid, wordInGrid);
                     break;
                 case 3:
-                    fit = getDiagonalTargets(index, grid, word);
+                    fit = getDiagonalTargetsLR(index, grid, wordInGrid);
                     break;
             }
 
             if (fit) {
-                addWordToGrid(index, grid, word, mode);
+                addWordToGrid(index, grid, wordInGrid, mode);
             }
         }
 
@@ -86,22 +94,12 @@ public class WordSearchGenerator {
 
     }
 
-    public static void addWordToGrid(int index, char grid[][], String word, int mode) {
+    public static void addWordToGrid(int index, char grid[][], String wordInGrid, int mode) {
         int rows = grid.length;
         int cols = grid[0].length;
 
         int row = index / rows;
         int col = index % cols;
-
-        Random random = new Random();
-
-        String wordInGrid = word;
-
-        int choice = random.nextInt(2); // Generates 0 or 1
-        if (choice == 0) {
-            StringBuilder stringBuilder = new StringBuilder(word);
-            wordInGrid = stringBuilder.reverse().toString();
-        }
 
         switch (mode) {
             case 0:
@@ -147,9 +145,6 @@ public class WordSearchGenerator {
 
         int grid_horizontal_boundary = grid.length - word_length;
         int grid_vertical_boundary = grid[0].length - word_length;
-
-        // System.out.println("h: " + grid_horizontal_boundary + " v: " +
-        // grid_vertical_boundary + " " + word);
 
         Random random = new Random();
         int target_col = random.nextInt(grid_horizontal_boundary) + 1;
@@ -251,7 +246,7 @@ public class WordSearchGenerator {
         return fit;
     }
 
-    public static boolean getDiagonalTargets(int index, char grid[][], String word) {
+    public static boolean getDiagonalTargetsLR(int index, char grid[][], String word) {
         boolean fit = false;
         int rows = grid[0].length;
         int cols = grid[0].length;
@@ -264,6 +259,33 @@ public class WordSearchGenerator {
         // If we are moving vertically, the row changes by one
 
         for (int i = 0; i < word.length(); i++, row++, col++) {
+            char letter = word.charAt(i);
+            char cell = grid[row][col];
+            if (cell == ' ' || cell == letter)
+                matches++;
+        }
+
+        if (matches == word.length())
+            fit = true;
+
+        return fit;
+    }
+
+    public static boolean getDiagonalTargetsRL(int index, char grid[][], String word) {
+        boolean fit = false;
+        int rows = grid[0].length;
+        int cols = grid[0].length;
+
+        int row = index / rows;
+        int col = index % cols;
+        int matches = 0;
+
+        // If we are moving horizontally, the column changes by one
+        // If we are moving vertically, the row changes by one
+
+        col = col + word.length() - 1;
+
+        for (int i = 0; i < word.length(); i++, row++, col--) {
             char letter = word.charAt(i);
             char cell = grid[row][col];
             if (cell == ' ' || cell == letter)
