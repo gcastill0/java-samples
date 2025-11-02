@@ -6,13 +6,17 @@ import java.util.Random;
 
 public class WordSearchGenerator {
 
+    public static int HORIZONTAL = 0;
+    public static int VERTICAL = 1;
+    public static int DIAGONAL = 2;
+
     public static void main(String[] args) throws IOException {
 
         // Use a single BufferedReader
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int min = 5;
-        int max = 10;
+        int min = 10;
+        int max = 20;
 
         // User inputs
         String fileName = readFileName("Please enter the file name: ", br);
@@ -20,14 +24,13 @@ public class WordSearchGenerator {
         int cols = readIntNumber("Enter the number of columns (10-20): ", min, max, br);
 
         // Data from file is organized as follows:
-
-        // wordsInPuzzle[0] -> "this"
-        // wordsInPuzzle[1] -> "test"
-        // wordsInPuzzle[2] -> "file"
-        // wordsInPuzzle[3] -> "contains"
-        // wordsInPuzzle[4] -> "seven"
-        // wordsInPuzzle[5] -> "words"
-        // wordsInPuzzle[6] -> "inside"
+        // wordsFromFile[0] -> "this"
+        // wordsFromFile[1] -> "test"
+        // wordsFromFile[2] -> "file"
+        // wordsFromFile[3] -> "contains"
+        // wordsFromFile[4] -> "seven"
+        // wordsFromFile[5] -> "words"
+        // wordsFromFile[6] -> "inside"
 
         String wordsFromFile[] = getWordArray(fileName);
 
@@ -57,6 +60,7 @@ public class WordSearchGenerator {
         // wordsInPuzzle[5] -> ['f','i','l','e']
         // wordsInPuzzle[6] -> ['t','h','i','s']
 
+        sortWordArray(wordsFromFile);
         sortWordArray(wordsInPuzzle);
 
         // Test the array
@@ -77,10 +81,119 @@ public class WordSearchGenerator {
             }
         }
 
-        for (int i = 0; i < wordsInPuzzle.length; i++) {
-            int index = getRandomIndex(grid);
-            getHorizonalTargets(index, rows, cols, wordsInPuzzle[i]);
+        Random random = new Random();
+
+        for (int i = 0; i < wordsFromFile.length; i++) {
+            int index = randomIndexPosition(grid, wordsFromFile[i]);
+            String word = wordsFromFile[i];
+            int mode = random.nextInt(3);
+            boolean fit = false;
+
+            switch (mode) {
+                case 0:
+                    fit = getVerticalTargets(index, grid, word);
+                    break;
+                case 1:
+                    fit = getHorizontalTargets(index, grid, word);
+                    break;
+                case 2:
+                    fit = getDiagonalTargets(index, grid, word);
+                    break;
+            }
+
+            if (fit) {
+                addWordToGrid(index, grid, word, mode);
+            }
         }
+
+        displayGrid(grid);
+
+    }
+
+    public static void addWordToGrid(int index, char grid[][], String word, int mode) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+
+        int row = index / rows;
+        int col = index % cols;
+
+        switch (mode) {
+            case 0:
+                for (int i = 0; i < word.length(); i++, row++) {
+                    grid[row][col] = word.charAt(i);
+                }
+                break;
+            case 1:
+                for (int i = 0; i < word.length(); i++, col++) {
+                    grid[row][col] = word.charAt(i);
+                }
+                break;
+            case 2:
+                for (int i = 0; i < word.length(); i++, row++, col++) {
+                    grid[row][col] = word.charAt(i);
+                }
+                break;
+
+        }
+    }
+
+    public static void addWordToGrid(int index, char grid[][], String word) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+
+        int row = index / rows;
+        int col = index % cols;
+
+        for (int i = 0; i < word.length(); i++, col++) {
+            grid[row][col] = word.charAt(i);
+        }
+    }
+
+    public static int randomIndexPosition(char grid[][], String word) {
+        int index;
+        int word_length = word.length();
+
+        int grid_horizontal_boundary = grid.length - word_length;
+        int grid_vertical_boundary = grid[0].length - word_length;
+
+        // System.out.println("h: " + grid_horizontal_boundary + " v: " +
+        // grid_vertical_boundary + " " + word);
+
+        Random random = new Random();
+        int target_col = random.nextInt(grid_horizontal_boundary) + 1;
+        int target_row = random.nextInt(grid_vertical_boundary) + 1;
+
+        index = target_col * grid.length + target_row;
+
+        return index;
+    }
+
+    public static void displayGrid(char grid[][]) {
+
+        System.out.print("   ");
+        for (int i = 0; i < grid[0].length; i++) {
+            System.out.printf(" %2d ", i);
+        }
+        System.out.println();
+
+        for (int i = 0; i < grid.length; i++) {
+            System.out.print("   ");
+            for (int j = 0; j < grid[0].length; j++) {
+                System.out.print("|---");
+            }
+            System.out.println("|");
+            System.out.printf("%2d ", i);
+            for (int j = 0; j < grid[i].length; j++) {
+                System.out.print("| " + grid[i][j] + " ");
+            }
+            System.out.println("|");
+        }
+
+        System.out.print("   ");
+        for (int i = 0; i < grid[0].length; i++) {
+            System.out.print("|---");
+        }
+        System.out.println("|");
     }
 
     public static int getRandomIndex(char grid[][]) {
@@ -95,6 +208,99 @@ public class WordSearchGenerator {
 
         return randomIndex;
     }
+
+    public static boolean getHorizontalTargets(int index, char grid[][], String word) {
+        boolean fit = false;
+        int rows = grid[0].length;
+        int cols = grid[0].length;
+
+        int row = index / rows;
+        int col = index % cols;
+        int matches = 0;
+
+        // If we are moving horizontally, the row does not change
+
+        for (int i = 0; i < word.length(); i++, col++) {
+            char letter = word.charAt(i);
+            char cell = grid[row][col];
+            if (cell == ' ' || cell == letter)
+                matches++;
+        }
+
+        if (matches == word.length())
+            fit = true;
+
+        return fit;
+    }
+
+    public static boolean getVerticalTargets(int index, char grid[][], String word) {
+        boolean fit = false;
+        int rows = grid[0].length;
+        int cols = grid[0].length;
+
+        int row = index / rows;
+        int col = index % cols;
+        int matches = 0;
+
+        // If we are moving vertically, the column does not change
+        // If we are moving vertically, the row changes by one
+        for (int i = 0; i < word.length(); i++, row++) {
+            char letter = word.charAt(i);
+            char cell = grid[row][col];
+            if (cell == ' ' || cell == letter)
+                matches++;
+        }
+
+        if (matches == word.length())
+            fit = true;
+
+        return fit;
+    }
+
+    public static boolean getDiagonalTargets(int index, char grid[][], String word) {
+        boolean fit = false;
+        int rows = grid[0].length;
+        int cols = grid[0].length;
+
+        int row = index / rows;
+        int col = index % cols;
+        int matches = 0;
+
+        // If we are moving horizontally, the column changes by one
+        // If we are moving vertically, the row changes by one
+
+        for (int i = 0; i < word.length(); i++, row++, col++) {
+            char letter = word.charAt(i);
+            char cell = grid[row][col];
+            if (cell == ' ' || cell == letter)
+                matches++;
+        }
+
+        if (matches == word.length())
+            fit = true;
+
+        return fit;
+    }
+
+    // public static int[] getHorizonalTargets(int index, char grid[][], String
+    // word) {
+    // int targets[] = new int[word.length()];
+    // int rows = grid[0].length;
+    // int cols = grid[0].length;
+
+    // int row = index / rows;
+    // int col = index % cols;
+
+    // // If we are moving horizontally, the row does not change
+
+    // for (int i = 0; i < word.length(); i++, col++) {
+    // char letter = word.charAt(i);
+    // targets[i] = row * cols + col;
+    // System.out.println("[" + row + "][" + col + "] = " + letter);
+    // }
+
+    // return targets;
+    // }
 
     public static int[] getHorizonalTargets(int index, int rows, int cols, char letters[]) {
         int targets[] = new int[letters.length];
@@ -217,7 +423,7 @@ public class WordSearchGenerator {
             String line;
             int index = 0;
             while ((line = reader.readLine()) != null) {
-                wordArray[index] = line;
+                wordArray[index] = line.toUpperCase();
                 index++;
             }
         } catch (IOException e) {
