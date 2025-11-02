@@ -8,7 +8,8 @@ public class WordSearchGenerator {
 
     public static int HORIZONTAL = 0;
     public static int VERTICAL = 1;
-    public static int DIAGONAL = 2;
+    public static int DIAGONAL_LR = 2;
+    public static int DIAGONAL_RL = 3;
 
     public static void main(String[] args) throws IOException {
 
@@ -19,9 +20,9 @@ public class WordSearchGenerator {
         int max = 20;
 
         // User inputs
-        String fileName = readFileName("Please enter the file name: ", br);
-        int rows = readIntNumber("Enter the number of rows (10-20): ", min, max, br);
-        int cols = readIntNumber("Enter the number of columns (10-20): ", min, max, br);
+        String fileName = "input.txt";//readFileName("Please enter the file name: ", br);
+        int rows = 20;//readIntNumber("Enter the number of rows (10-20): ", min, max, br);
+        int cols = 20;//readIntNumber("Enter the number of columns (10-20): ", min, max, br);
 
         // Data from file is organized as follows:
         // wordsFromFile[0] -> "this"
@@ -86,7 +87,7 @@ public class WordSearchGenerator {
         for (int i = 0; i < wordsFromFile.length; i++) {
             int index = randomIndexPosition(grid, wordsFromFile[i]);
             String word = wordsFromFile[i];
-            int mode = random.nextInt(3);
+            int mode = random.nextInt(4);
             boolean fit = false;
 
             switch (mode) {
@@ -97,6 +98,9 @@ public class WordSearchGenerator {
                     fit = getHorizontalTargets(index, grid, word);
                     break;
                 case 2:
+                    fit = getDiagonalTargets(index, grid, word);
+                    break;
+                case 3:
                     fit = getDiagonalTargets(index, grid, word);
                     break;
             }
@@ -117,20 +121,36 @@ public class WordSearchGenerator {
         int row = index / rows;
         int col = index % cols;
 
+        Random random = new Random();
+
+        String wordInGrid = word;
+
+        int choice = random.nextInt(2); // Generates 0 or 1
+        if (choice == 0) {
+            StringBuilder stringBuilder = new StringBuilder(word);
+            wordInGrid = stringBuilder.reverse().toString();
+        }
+
         switch (mode) {
             case 0:
-                for (int i = 0; i < word.length(); i++, row++) {
-                    grid[row][col] = word.charAt(i);
+                for (int i = 0; i < wordInGrid.length(); i++, row++) {
+                    grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
             case 1:
-                for (int i = 0; i < word.length(); i++, col++) {
-                    grid[row][col] = word.charAt(i);
+                for (int i = 0; i < wordInGrid.length(); i++, col++) {
+                    grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
             case 2:
-                for (int i = 0; i < word.length(); i++, row++, col++) {
-                    grid[row][col] = word.charAt(i);
+                col = col + wordInGrid.length() - 1;
+                for (int i = 0; i < wordInGrid.length(); i++, row++, col--) {
+                    grid[row][col] = wordInGrid.charAt(i);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < wordInGrid.length(); i++, row++, col++) {
+                    grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
 
@@ -219,6 +239,7 @@ public class WordSearchGenerator {
         int matches = 0;
 
         // If we are moving horizontally, the row does not change
+        // If we are moving horizontally, the column changes by one
 
         for (int i = 0; i < word.length(); i++, col++) {
             char letter = word.charAt(i);
@@ -244,6 +265,7 @@ public class WordSearchGenerator {
 
         // If we are moving vertically, the column does not change
         // If we are moving vertically, the row changes by one
+
         for (int i = 0; i < word.length(); i++, row++) {
             char letter = word.charAt(i);
             char cell = grid[row][col];
