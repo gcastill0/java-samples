@@ -127,18 +127,6 @@ public class WordSearchGenerator {
         }
     }
 
-    public static void addWordToGrid(int index, char grid[][], String word) {
-        int rows = grid.length;
-        int cols = grid[0].length;
-
-        int row = index / rows;
-        int col = index % cols;
-
-        for (int i = 0; i < word.length(); i++, col++) {
-            grid[row][col] = word.charAt(i);
-        }
-    }
-
     public static int randomIndexPosition(char grid[][], String word) {
         int index;
         int word_length = word.length();
@@ -181,19 +169,6 @@ public class WordSearchGenerator {
             System.out.print("|---");
         }
         System.out.println("|");
-    }
-
-    public static int getRandomIndex(char grid[][]) {
-
-        int rows = grid.length;
-        int cols = grid[0].length;
-        int min = 0;
-        int max = rows * cols;
-
-        Random random = new Random();
-        int randomIndex = random.nextInt(max - min + 1) + min;
-
-        return randomIndex;
     }
 
     public static boolean getHorizontalTargets(int index, char grid[][], String word) {
@@ -296,17 +271,6 @@ public class WordSearchGenerator {
             fit = true;
 
         return fit;
-    }
-
-    public static char[] getLetterArray(String word) {
-        char letters[] = new char[word.length()];
-
-        for (int i = 0; i < word.length(); i++) {
-            char letter = word.charAt(i);
-            letters[i] = Character.toUpperCase(letter);
-        }
-
-        return letters;
     }
 
     public static void sortWordArray(String wordsFromFile[]) {
