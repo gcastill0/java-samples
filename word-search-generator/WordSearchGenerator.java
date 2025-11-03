@@ -11,6 +11,13 @@ public class WordSearchGenerator {
     public static int DIAGONAL_LR = 2;
     public static int DIAGONAL_RL = 3;
 
+    /**
+     * Application entry point. Reads inputs, generates a word search grid, places
+     * words, and prints the final puzzle.
+     * 
+     * @param args Command-line arguments. Not required for typical interactive use.
+     * @throws IOException if reading user input or the source word file fails.
+     */
     public static void main(String[] args) throws IOException {
 
         // Use a single BufferedReader
@@ -94,6 +101,26 @@ public class WordSearchGenerator {
 
     }
 
+    /**
+     * Attempt to place a single word into the grid starting at a linear index using
+     * a specified orientation.
+     * <p>
+     * Computes row and column from the linear index (index = row * columnCount +
+     * col).
+     * <p>
+     * Validates that the path fits and that each cell is either empty or already
+     * matches the required letter.
+     * <p>
+     * On success, writes letters into empty cells and leaves matching overlaps
+     * intact; otherwise the grid is unchanged.
+     * 
+     * @param index      Zero-based linear start position (row * columnCount + col).
+     * @param grid       Puzzle grid. Filled cells contain letters; empty cells
+     *                   contain a placeholder such as '.'.
+     * @param wordInGrid Word to place. Must be non-null and length ≥ 1.
+     * @param mode       Direction constant: HORIZONTAL, VERTICAL, DIAGONAL_LR
+     *                   (down-right), or DIAGONAL_RL (down-left).
+     */
     public static void addWordToGrid(int index, char grid[][], String wordInGrid, int mode) {
         int rows = grid.length;
         int cols = grid[0].length;
@@ -127,6 +154,19 @@ public class WordSearchGenerator {
         }
     }
 
+    /**
+     * Find a random valid starting position for the given word in the current grid.
+     * <p>
+     * Enumerates all legal placements under the supported orientations and selects
+     * one uniformly at random.
+     * <p>
+     * If no legal placements exist, returns a sentinel value.
+     * 
+     * @param grid Current puzzle grid used to test bounds and conflicts.
+     * @param word Word to test for placement.
+     * @return Zero-based linear index for a valid start (row * columnCount + col),
+     *         or −1 if none fit.
+     */
     public static int randomIndexPosition(char grid[][], String word) {
         int index;
         int word_length = word.length();
@@ -143,6 +183,11 @@ public class WordSearchGenerator {
         return index;
     }
 
+    /**
+     * Print the grid to standard output in row-major order.
+     * 
+     * @param grid Grid to display. Each cell is printed as a character.
+     */
     public static void displayGrid(char grid[][]) {
 
         System.out.print("   ");
@@ -171,6 +216,21 @@ public class WordSearchGenerator {
         System.out.println("|");
     }
 
+    /**
+     * Validate and place the word horizontally from a linear starting position.
+     * <p>
+     * Ensures the word fits to the right within the same row.
+     * <p>
+     * Accepts overlaps where existing letters match; rejects conflicting letters.
+     * <p>
+     * Modifies the grid on success and returns true.
+     * 
+     * @param index Zero-based linear start position (row * columnCount + col).
+     * @param grid  Puzzle grid to validate and possibly modify.
+     * @param word  Word to place left-to-right.
+     * @return true if the word was placed; false if out-of-bounds or blocked by a
+     *         conflicting letter.
+     */
     public static boolean getHorizontalTargets(int index, char grid[][], String word) {
         boolean fit = false;
         int rows = grid[0].length;
@@ -196,6 +256,21 @@ public class WordSearchGenerator {
         return fit;
     }
 
+    /**
+     * Validate and place the word vertically downward from a linear starting
+     * position.
+     * <p>
+     * Checks row bounds for the word length from the starting cell downward.
+     * <p>
+     * Allows same-letter overlaps; fails on conflicts.
+     * <p>
+     * Writes letters into empty cells on success.
+     * 
+     * @param index Zero-based linear start position (row * columnCount + col).
+     * @param grid  Puzzle grid to validate and possibly modify.
+     * @param word  Word to place top-to-bottom.
+     * @return true on successful placement; false otherwise.
+     */
     public static boolean getVerticalTargets(int index, char grid[][], String word) {
         boolean fit = false;
         int rows = grid[0].length;
@@ -221,6 +296,19 @@ public class WordSearchGenerator {
         return fit;
     }
 
+    /**
+     * Validate and place the word along the down-right diagonal from the starting
+     * position.
+     * <p>
+     * Steps (row+1, col+1) per letter and verifies bounds and conflicts.
+     * <p>
+     * Allows matching overlaps; fills empty cells on success.
+     * 
+     * @param index Zero-based linear start position (row * columnCount + col).
+     * @param grid  Puzzle grid to validate and possibly modify.
+     * @param word  Word to place along the down-right diagonal.
+     * @return true if placed; false if out-of-bounds or conflicting.
+     */
     public static boolean getDiagonalTargetsLR(int index, char grid[][], String word) {
         boolean fit = false;
         int rows = grid[0].length;
@@ -246,6 +334,19 @@ public class WordSearchGenerator {
         return fit;
     }
 
+    /**
+     * Validate and place the word along the down-left diagonal from the starting
+     * position.
+     * <p>
+     * Steps (row+1, col−1) per letter and checks bounds and conflicts.
+     * <p>
+     * Allows matching overlaps; fills empty cells on success.
+     * 
+     * @param index Zero-based linear start position (row * columnCount + col).
+     * @param grid  Puzzle grid to validate and possibly modify.
+     * @param word  Word to place along the down-left diagonal.
+     * @return true if placed; false if out-of-bounds or conflicting.
+     */
     public static boolean getDiagonalTargetsRL(int index, char grid[][], String word) {
         boolean fit = false;
         int rows = grid[0].length;
@@ -273,6 +374,15 @@ public class WordSearchGenerator {
         return fit;
     }
 
+    /**
+     * Sort the array of words in descending length so longer words are placed
+     * first.
+     * <p>
+     * Sorting by length reduces placement dead-ends and backtracking.
+     * 
+     * @param wordsFromFile Array of words to sort in place. Null or empty strings
+     *                      should be filtered beforehand.
+     */
     public static void sortWordArray(String wordsFromFile[]) {
 
         for (int i = 0; i < wordsFromFile.length - 1; i++) {
@@ -287,6 +397,15 @@ public class WordSearchGenerator {
 
     }
 
+    /**
+     * Load newline-separated words from a text file into an array.
+     * <p>
+     * Coverts each word to upper case.
+     * 
+     * @param fileName Path to the file containing one word per line.
+     * @return Array of words in file order.
+     * @throws IOException if the file cannot be opened or read.
+     */
     public static String[] getWordArray(String fileName) throws IOException {
         int wordArrayLength = 0;
 
@@ -319,6 +438,17 @@ public class WordSearchGenerator {
         return wordArray;
     }
 
+    /**
+     * Prompt the user for an input file path and return their response.
+     * <p>
+     * Displays the prompt and reads a single line from the provided reader.
+     * 
+     * @param message Prompt shown to the user (e.g., "Please enter the file
+     *                name:").
+     * @param br      BufferedReader connected to standard input.
+     * @return The path entered by the user, without the trailing newline.
+     * @throws IOException on input read failure.
+     */
     public static String readFileName(String message, BufferedReader br) throws IOException {
         String defaultFileName = "input.txt";
 
@@ -339,6 +469,22 @@ public class WordSearchGenerator {
         }
     }
 
+    /**
+     * Prompt repeatedly until the user supplies an integer within [min, max], then
+     * return it.
+     * <p>
+     * Writes the prompt, parses the response, and reprompts on format errors or
+     * out-of-range values.
+     * <p>
+     * Useful for dimensions like rows and columns.
+     * 
+     * @param message Prompt text shown before reading input.
+     * @param min     Minimum acceptable integer value (inclusive).
+     * @param max     Maximum acceptable integer value (inclusive).
+     * @param br      BufferedReader connected to standard input.
+     * @return Validated integer in the inclusive range [min, max].
+     * @throws IOException on input read failure.
+     */
     public static int readIntNumber(String message, int min, int max, BufferedReader br) throws IOException {
 
         int number = -99;
