@@ -23,9 +23,9 @@ public class WordSearchGenerator {
         int max = 20;
 
         // User inputs
-        String fileName = "input.txt";// readFileName("Please enter the file name: ", br);
-        int rows = 10;// readIntNumber("Enter the number of rows (10-20): ", min, max, br);
-        int cols = 10;// readIntNumber("Enter the number of columns (10-20): ", min, max, br);
+        String fileName = readFileName("Please enter the file name: ", br);
+        int rows = 10; // readIntNumber("Enter the number of rows (10-20): ", min, max, br);
+        int cols = 10; // readIntNumber("Enter the number of columns (10-20): ", min, max, br);
 
         // Data from file is organized as follows:
         // wordsFromFile[0] -> "THIS"
@@ -34,13 +34,13 @@ public class WordSearchGenerator {
         // wordsFromFile[3] -> "CONTAINS"
         // wordsFromFile[4] -> "SEVEN"
         // wordsFromFile[5] -> "WORDS"
-        // wordsFromFile[6] -> "INDIDE"
+        // wordsFromFile[6] -> "INSIDE"
 
         String wordsFromFile[] = getWordArray(fileName);
 
         // Sort the array becuse longer length words are more difficult to place
         // wordsFromFile[0] -> "CONTAINS"
-        // wordsFromFile[1] -> "INDIDE"
+        // wordsFromFile[1] -> "INSIDE"
         // wordsFromFile[2] -> "SEVEN"
         // wordsFromFile[3] -> "WORDS"
         // wordsFromFile[4] -> "FILE"
@@ -53,9 +53,11 @@ public class WordSearchGenerator {
         char grid[][] = new char[rows][cols];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                grid[i][j] = ' ';
+                grid[i][j] = Constants.DEFAULT_EMPTY_CHAR;
             }
         }
+
+        System.out.println("rows: " + grid.length + " cols: " + grid[0].length);
 
         Random random = new Random();
 
@@ -80,16 +82,18 @@ public class WordSearchGenerator {
                 case Constants.HORIZONTAL:
                     fit = getHorizontalTargets(index, grid, wordInGrid);
                     break;
-                case Constants.DIAGONAL_LR:
+                case Constants.DIAGONAL_RL:
                     fit = getDiagonalTargetsRL(index, grid, wordInGrid);
                     break;
-                case Constants.DIAGONAL_RL:
+                case Constants.DIAGONAL_LR:
                     fit = getDiagonalTargetsLR(index, grid, wordInGrid);
                     break;
             }
 
             if (fit) {
                 addWordToGrid(index, grid, wordInGrid, mode);
+            } else {
+                i -= 1;
             }
         }
 
@@ -122,7 +126,7 @@ public class WordSearchGenerator {
         int rows = grid.length;
         int cols = grid[0].length;
 
-        int row = index / rows;
+        int row = (index - (index % cols)) / cols;
         int col = index % cols;
 
         switch (mode) {
@@ -136,13 +140,13 @@ public class WordSearchGenerator {
                     grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
-            case Constants.DIAGONAL_LR:
+            case Constants.DIAGONAL_RL:
                 col = col + wordInGrid.length() - 1;
                 for (int i = 0; i < wordInGrid.length(); i++, row++, col--) {
                     grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
-            case Constants.DIAGONAL_RL:
+            case Constants.DIAGONAL_LR:
                 for (int i = 0; i < wordInGrid.length(); i++, row++, col++) {
                     grid[row][col] = wordInGrid.charAt(i);
                 }
@@ -167,15 +171,16 @@ public class WordSearchGenerator {
     public static int randomIndexPosition(char grid[][], String word) {
         int index;
         int word_length = word.length();
+        int cols = grid[0].length;
 
-        int grid_horizontal_boundary = grid.length - word_length;
-        int grid_vertical_boundary = grid[0].length - word_length;
+        int grid_horizontal_boundary = ((grid.length - word_length) == 0) ? 1 : grid.length - word_length;
+        int grid_vertical_boundary = ((grid[0].length - word_length) == 0) ? 1 : grid[0].length - word_length;
 
         Random random = new Random();
-        int target_col = random.nextInt(grid_horizontal_boundary) + 1;
-        int target_row = random.nextInt(grid_vertical_boundary) + 1;
+        int target_row = random.nextInt(grid_horizontal_boundary);
+        int target_col = random.nextInt(grid_vertical_boundary);
 
-        index = target_col * grid.length + target_row;
+        index = target_row * cols + target_col;
 
         return index;
     }
@@ -230,20 +235,21 @@ public class WordSearchGenerator {
      */
     public static boolean getHorizontalTargets(int index, char grid[][], String word) {
         boolean fit = false;
-        int rows = grid[0].length;
+        int rows = grid.length;
         int cols = grid[0].length;
 
-        int row = index / rows;
+        // index = target_row * cols + target_col;
+
+        int row = (index - (index % cols)) / cols;
         int col = index % cols;
         int matches = 0;
 
         // If we are moving horizontally, the row does not change
         // If we are moving horizontally, the column changes by one
-
         for (int i = 0; i < word.length(); i++, col++) {
             char letter = word.charAt(i);
             char cell = grid[row][col];
-            if (cell == ' ' || cell == letter)
+            if (cell == Constants.DEFAULT_EMPTY_CHAR || cell == letter)
                 matches++;
         }
 
@@ -270,20 +276,19 @@ public class WordSearchGenerator {
      */
     public static boolean getVerticalTargets(int index, char grid[][], String word) {
         boolean fit = false;
-        int rows = grid[0].length;
+        int rows = grid.length;
         int cols = grid[0].length;
 
-        int row = index / rows;
+        int row = (index - (index % cols)) / cols;
         int col = index % cols;
         int matches = 0;
 
         // If we are moving vertically, the column does not change
         // If we are moving vertically, the row changes by one
-
         for (int i = 0; i < word.length(); i++, row++) {
             char letter = word.charAt(i);
             char cell = grid[row][col];
-            if (cell == ' ' || cell == letter)
+            if (cell == Constants.DEFAULT_EMPTY_CHAR || cell == letter)
                 matches++;
         }
 
@@ -308,20 +313,19 @@ public class WordSearchGenerator {
      */
     public static boolean getDiagonalTargetsLR(int index, char grid[][], String word) {
         boolean fit = false;
-        int rows = grid[0].length;
+        int rows = grid.length;
         int cols = grid[0].length;
 
-        int row = index / rows;
+        int row = (index - (index % cols)) / cols;
         int col = index % cols;
         int matches = 0;
 
         // If we are moving horizontally, the column changes by one
         // If we are moving vertically, the row changes by one
-
         for (int i = 0; i < word.length(); i++, row++, col++) {
             char letter = word.charAt(i);
             char cell = grid[row][col];
-            if (cell == ' ' || cell == letter)
+            if (cell == Constants.DEFAULT_EMPTY_CHAR || cell == letter)
                 matches++;
         }
 
@@ -346,10 +350,10 @@ public class WordSearchGenerator {
      */
     public static boolean getDiagonalTargetsRL(int index, char grid[][], String word) {
         boolean fit = false;
-        int rows = grid[0].length;
+        int rows = grid.length;
         int cols = grid[0].length;
 
-        int row = index / rows;
+        int row = (index - (index % cols)) / cols;
         int col = index % cols;
         int matches = 0;
 
@@ -357,11 +361,10 @@ public class WordSearchGenerator {
         // If we are moving vertically, the row changes by one
 
         col = col + word.length() - 1;
-
         for (int i = 0; i < word.length(); i++, row++, col--) {
             char letter = word.charAt(i);
             char cell = grid[row][col];
-            if (cell == ' ' || cell == letter)
+            if (cell == Constants.DEFAULT_EMPTY_CHAR || cell == letter)
                 matches++;
         }
 
@@ -498,12 +501,13 @@ public class WordSearchGenerator {
             }
         }
 
-        return number;
+        return number - 1;
     }
 
     /**
      * Writes the given 2D character grid to the default output file specified by
-     * Constants.DEFAULT_OUTPUT_FILE_NAME. Each row of the grid is written as a line:
+     * Constants.DEFAULT_OUTPUT_FILE_NAME. Each row of the grid is written as a
+     * line:
      * characters in a row are written consecutively (no separators) and a newline
      * ('\n') is written after each row.
      * </p>
