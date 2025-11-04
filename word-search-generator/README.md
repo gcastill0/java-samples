@@ -53,7 +53,7 @@ java WordSearchGenerator.java
 
 ### To Do
 
-Fixed collisions. Note the overlapping cell row 4, col 5. The letter `S` works for the word `THIS` (row 0, col 5), `FATOSAURUS` (row 0, col 9), and `INSIDE` (row 1, col 2 - reversed).
+Fixed collisions. Note the overlapping cell row 4, col 5. The letter `S` works for the word `THIS` (from row 1, col 5 to row 4, col 5), `FATOSAURUS` (from row 0, col 9 to row 9, col 0), and `INSIDE` (from row 6, col 7 to row 1, col 2).
 
 ```bash
 Please enter the file name: 
