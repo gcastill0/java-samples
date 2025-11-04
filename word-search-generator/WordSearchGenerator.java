@@ -1,15 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
 public class WordSearchGenerator {
-
-    public static int HORIZONTAL = 0;
-    public static int VERTICAL = 1;
-    public static int DIAGONAL_LR = 2;
-    public static int DIAGONAL_RL = 3;
 
     /**
      * Application entry point. Reads inputs, generates a word search grid, places
@@ -78,16 +74,16 @@ public class WordSearchGenerator {
             }
 
             switch (mode) {
-                case 0:
+                case Constants.VERTICAL:
                     fit = getVerticalTargets(index, grid, wordInGrid);
                     break;
-                case 1:
+                case Constants.HORIZONTAL:
                     fit = getHorizontalTargets(index, grid, wordInGrid);
                     break;
-                case 2:
+                case Constants.DIAGONAL_LR:
                     fit = getDiagonalTargetsRL(index, grid, wordInGrid);
                     break;
-                case 3:
+                case Constants.DIAGONAL_RL:
                     fit = getDiagonalTargetsLR(index, grid, wordInGrid);
                     break;
             }
@@ -97,6 +93,7 @@ public class WordSearchGenerator {
             }
         }
 
+        saveGrid(grid);
         displayGrid(grid);
 
     }
@@ -129,23 +126,23 @@ public class WordSearchGenerator {
         int col = index % cols;
 
         switch (mode) {
-            case 0:
+            case Constants.VERTICAL:
                 for (int i = 0; i < wordInGrid.length(); i++, row++) {
                     grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
-            case 1:
+            case Constants.HORIZONTAL:
                 for (int i = 0; i < wordInGrid.length(); i++, col++) {
                     grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
-            case 2:
+            case Constants.DIAGONAL_LR:
                 col = col + wordInGrid.length() - 1;
                 for (int i = 0; i < wordInGrid.length(); i++, row++, col--) {
                     grid[row][col] = wordInGrid.charAt(i);
                 }
                 break;
-            case 3:
+            case Constants.DIAGONAL_RL:
                 for (int i = 0; i < wordInGrid.length(); i++, row++, col++) {
                     grid[row][col] = wordInGrid.charAt(i);
                 }
@@ -450,7 +447,7 @@ public class WordSearchGenerator {
      * @throws IOException on input read failure.
      */
     public static String readFileName(String message, BufferedReader br) throws IOException {
-        String defaultFileName = "input.txt";
+        String defaultFileName = Constants.DEFAULT_INPUT_FILE_NAME;
 
         try {
             System.out.print(message);
@@ -502,6 +499,34 @@ public class WordSearchGenerator {
         }
 
         return number;
+    }
+
+    /**
+     * Writes the given 2D character grid to the default output file specified by
+     * Constants.DEFAULT_OUTPUT_FILE_NAME. Each row of the grid is written as a line:
+     * characters in a row are written consecutively (no separators) and a newline
+     * ('\n') is written after each row.
+     * </p>
+     * 
+     * @param grid 2D array of characters representing the grid to save
+     * @see Constants#DEFAULT_OUTPUT_FILE_NAME
+     */
+    public static void saveGrid(char grid[][]) {
+        String defaultFileName = Constants.DEFAULT_OUTPUT_FILE_NAME;
+
+        try {
+            FileWriter writer = new FileWriter(defaultFileName);
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[0].length; j++) {
+                    writer.write(grid[i][j]);
+                }
+                writer.write("\n");
+            }
+            writer.close(); // Important to close the writer
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }
