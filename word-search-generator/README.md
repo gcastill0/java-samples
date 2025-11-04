@@ -53,29 +53,33 @@ java WordSearchGenerator.java
 
 ### To Do
 
-Work on collisions. This what can happen with a smaller grid. In this case we use a 10 x 10 grid and we can see the overlap on row 5, column 6
+Fixed collisions. Note the overlapping cell row 4, col 5. The letter `S` works for the word `THIS` (row 0, col 5), `FATOSAURUS` (row 0, col 9), and `INSIDE` (row 1, col 2 - reversed).
 
 ```bash
+Please enter the file name: 
+File is empty. Using default file input.txt
+rows: 10 cols: 10
+
      0   1   2   3   4   5   6   7   8   9 
    |---|---|---|---|---|---|---|---|---|---|
- 0 |   |   |   |   |   |   |   |   |   |   |
+ 0 | S |   |   |   |   | T | E | S | T | F |
    |---|---|---|---|---|---|---|---|---|---|
- 1 |   |   |   |   |   |   |   |   |   |   |
+ 1 | S | N | E |   |   | T |   |   | A |   |
    |---|---|---|---|---|---|---|---|---|---|
- 2 |   | C | O | N | T | A | I | N | S |   |
+ 2 | E |   | I | D |   | H |   | T |   |   |
    |---|---|---|---|---|---|---|---|---|---|
- 3 |   |   |   |   |   |   |   |   |   |   |
+ 3 | V | S | F | A | I | I | O | S |   |   |
    |---|---|---|---|---|---|---|---|---|---|
- 4 |   |   |   |   |   |   |   |   |   |   |
+ 4 | E | D | I |   | T | S | D |   |   |   |
    |---|---|---|---|---|---|---|---|---|---|
- 5 |   |   |   |   | S | D | E | O | W |   |
+ 5 | N | R | L |   | A | N | N |   |   |   |
    |---|---|---|---|---|---|---|---|---|---|
- 6 |   |   |   |   |   | L |   |   |   |   |
+ 6 |   | O | E | U | U |   | O | I |   |   |
    |---|---|---|---|---|---|---|---|---|---|
- 7 |   |   |   |   | I |   |   |   |   |   |
+ 7 |   | W | R | O |   |   |   | C |   |   |
    |---|---|---|---|---|---|---|---|---|---|
- 8 |   |   |   | F |   |   |   |   |   |   |
+ 8 |   | U | B |   |   |   |   |   |   |   |
    |---|---|---|---|---|---|---|---|---|---|
- 9 |   |   |   |   |   |   |   |   |   |   |
+ 9 | S |   |   |   |   |   |   |   |   |   |
    |---|---|---|---|---|---|---|---|---|---|
 ```
