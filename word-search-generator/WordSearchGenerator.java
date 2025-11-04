@@ -19,13 +19,10 @@ public class WordSearchGenerator {
         // Use a single BufferedReader
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int min = 10;
-        int max = 20;
-
         // User inputs
-        String fileName = readFileName("Please enter the file name: ", br);
-        int rows = 10; // readIntNumber("Enter the number of rows (10-20): ", min, max, br);
-        int cols = 10; // readIntNumber("Enter the number of columns (10-20): ", min, max, br);
+        String fileName = readFileName("Please enter the file name, press return to use the default (input.txt): ", br);
+        int rows = readIntNumber("Enter the number of rows (10-20): ", Constants.MIN_ROWS, Constants.MAX_ROWS, br);
+        int cols = readIntNumber("Enter the number of columns (10-20): ", Constants.MIN_COLS, Constants.MAX_COLS, br);
 
         // Data from file is organized as follows:
         // wordsFromFile[0] -> "THIS"
@@ -493,15 +490,14 @@ public class WordSearchGenerator {
             try {
                 System.out.print(message);
                 number = Integer.parseInt(br.readLine());
-                if (number >= min && number <= max)
-                    break;
+                if (number >= min && number <= max) break;
                 System.out.format("Entere a value between %d and %d.\n", min, max);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid whole number.");
             }
         }
 
-        return number - 1;
+        return number ;
     }
 
     /**
