@@ -9,7 +9,6 @@ public class GetUserInputs {
 		int rows = 10;
 		int columns = 10;
 		solutionFile(wordList, rows, columns);
-
 	}
 	
 	 /**
@@ -20,6 +19,14 @@ public class GetUserInputs {
 	    **/
 	    public static char[][] solutionFile(String wordList[], int rows, int columns) {
 	    	char solution[][] = new char[rows][columns];
+
+			// Initialize empty solution. Each cell is a blank character ' '.
+			for (int row = 0; row < rows; row++) {
+				for (int col = 0; col < columns; col++) {
+					solution[row][col] = ' ';
+				}
+			}
+
 	    	for (int i = 0; i < wordList.length; i++) {
 	    		int fOrB = random.nextInt(2) + 1;
 	    		//int type = random.nextInt(4) + 1;
@@ -53,10 +60,15 @@ public class GetUserInputs {
 	           int columns = solution[0].length;
 	           int boundaries = columns - word.length(); //to figure out how much space the word has within the boundaries
 
-	           // randomizing the row and column where it spawns
-	           int startingColumn = random.nextInt(boundaries);
-	           int startingRow = random.nextInt(rows);
-	           horizontalSpace(solution, word, rows, columns, boundaries);
+			   boolean fit = false;
+
+			   while (fit == false) {
+				 // randomizing the row and column where it spawns
+				 int startingColumn = random.nextInt(boundaries);
+				 int startingRow = random.nextInt(rows);
+
+				fit = horizontalSpace(solution, word, startingRow, startingColumn, boundaries);
+			   }
 	    }
 	
 	/**
@@ -65,33 +77,42 @@ public class GetUserInputs {
 	* @param solution, word, rows, columns
 	* This method is intended to find a location where the word can be placed either vertically or horizontally without disrupting other words or going out of bounds 
 	**/
-	public static void horizontalSpace(char[][] solution, String word, int rows, int columns, int boundaries) {
+	public static boolean horizontalSpace(char[][] solution, String word, int row, int column, int boundaries) {
+		boolean fit = false;
 		int matches = 0;
 		int limit = 0;
-		while (matches != word.length()) { //if the number of spaces available is enough to fit the word
-			if (matches != 0) {
-				int tempRow = rows;
-				while (rows == tempRow) {
-					rows = random.nextInt(boundaries);
-				}
-				int tempColumn = columns;
-				while (columns == tempColumn) {
-					columns = random.nextInt(solution[boundaries].length - word.length());
-				}
-			}
-			matches = 0;
-			limit = columns + word.length();
+
+		// while (matches != word.length()) { //if the number of spaces available is enough to fit the word
+		// 	if (matches != 0) {
+		// 		int tempRow = row;
+		// 		while (row == tempRow) {
+		// 			row = random.nextInt(boundaries);
+		// 		}
+		// 		// int tempColumn = column;
+		// 		// while (column == tempColumn) {
+		// 		// 	column = random.nextInt(solution[boundaries].length - word.length());
+		// 		// }
+		// 	}
+			// matches = 0;
+			limit = word.length();
 			// If horizontal word, the row does not change
 			// If moving horizontally, the column increases by one
-			for (int i = 0; i < limit; i++) {
-				if (solution[rows -1][i] == ' ' || solution[rows -1][i] == word.charAt(i)) {
+			for (int i = 0; i < limit; i++, column++) {
+				if (solution[row][column] == ' ' || solution[row][column] == word.charAt(i)) {
 					matches++;
 				}
 			}
-		}
+		// }
+
+			if (matches == word.length()) fit = true;
+
 		for (int i = 0; i < limit; i++) {
-			solution[rows][i] = word.charAt(i);
-			System.out.println(solution[rows][i]);
+			solution[row][column] = word.charAt(i);
+			System.out.print(solution[row][column]);
 		}
+		
+		System.out.println();
+
+		return fit;
 	}
 }
