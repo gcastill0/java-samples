@@ -23,7 +23,7 @@ public class GetUserInputs {
 			// Initialize empty solution. Each cell is a blank character ' '.
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < columns; col++) {
-					solution[row][col] = ' ';
+					solution[row][col] = '.';
 				}
 			}
 
@@ -46,6 +46,15 @@ public class GetUserInputs {
 //	    				break;
 	    		}
 	    	}
+
+				for (int row = 0; row < rows; row++) {
+					System.out.println();
+				for (int col = 0; col < columns; col++) {
+					System.out.print(solution[row][col]);
+				}
+					System.out.println();
+			}
+
 	    	return solution;
 	    }
 	    
@@ -95,10 +104,11 @@ public class GetUserInputs {
 		// 	}
 			// matches = 0;
 			limit = word.length();
+			int col = column;
 			// If horizontal word, the row does not change
 			// If moving horizontally, the column increases by one
-			for (int i = 0; i < limit; i++, column++) {
-				if (solution[row][column] == ' ' || solution[row][column] == word.charAt(i)) {
+			for (int i = 0; i < limit; i++, col++) {
+				if (solution[row][col] == '.' || solution[row][col] == word.charAt(i)) {
 					matches++;
 				}
 			}
@@ -106,10 +116,13 @@ public class GetUserInputs {
 
 			if (matches == word.length()) fit = true;
 
-		for (int i = 0; i < limit; i++) {
-			solution[row][column] = word.charAt(i);
-			System.out.print(solution[row][column]);
-		}
+			col = column;
+			if (fit == true) {
+				for (int i = 0; i < limit; i++, col++) {
+					solution[row][col] = word.charAt(i);
+					// System.out.print(solution[row][col]);
+				}
+			}
 		
 		System.out.println();
 

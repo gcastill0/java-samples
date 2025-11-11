@@ -16,12 +16,12 @@ public class FileFunctions {
 	     * @throws IOException 
 	     **/
 	    public static void generatorMainMethod() throws IOException {
-	        //Scanner myScanner = new Scanner(System.in);
+	        // Scanner myScanner = new Scanner(System.in);
 	        int counter = 0;
 	        String solutionFileName;
 	        String wordsInFile[] = fileHandling();
 	        int rows = userInputNumber("rows");
-	        int columns = userInputNumber("rows");
+	        int columns = userInputNumber("columns");
 	        char solution[][] = new char[rows][columns];
 	        for (int i = 0; i < rows; i++) {
 	        	for (int j = 0; j < columns; j++) {
