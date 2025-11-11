@@ -16,7 +16,7 @@ public class FileFunctions {
 	     * @throws IOException 
 	     **/
 	    public static void generatorMainMethod() throws IOException {
-	        Scanner myScanner = new Scanner(System.in);
+	        //Scanner myScanner = new Scanner(System.in);
 	        int counter = 0;
 	        String solutionFileName;
 	        String wordsInFile[] = fileHandling();
@@ -44,49 +44,51 @@ public class FileFunctions {
 	    public static String[] fileHandling() throws IOException {
 	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	        int nOfWords = 0;
-	        String userFileName = "";
-	        String fileLine;
-	        int index = 0;
+	        String userFileName = defaultFileName;
 
 	        try {
 	            System.out.print("Please enter the name of the file needed: ");
 	            userFileName = br.readLine();
 	        } catch (IOException e) {
 	            System.err.println("Sorry, there was an error getting the file name: " + e.getMessage());
-	            System.out.println("Using default file, input.txt…");
+	            System.err.println("Using default file, input.txt.");
+	        } finally {
 	            userFileName = defaultFileName;
-	        }
+			}
 
-	        try {
+	        try (
 	            FileReader fileInput = new FileReader(userFileName);
-	            BufferedReader reader = new BufferedReader(fileInput);
-	            while ((fileLine = reader.readLine()) != null) {
-	                nOfWords++;
-	                if (nOfWords > 10) {
-	                    System.out.println("The file can only contain a maximum of 10 words. Please try again.");
-	                    // what do i do here
-	                }
-	                if (fileLine.length() > 8 || fileLine.length() < 4) {
-	                    System.out.println(
-	                            "The words in the file can only be between 4 and 8 words, inclusive. Please try again.");
-	                    // what do i do here
-	                }
-	            }
+	            BufferedReader reader = new BufferedReader(fileInput)) {
+					String fileLine;
+					while ((fileLine = reader.readLine()) != null) {						
+						nOfWords++;
+						if (nOfWords > 10) {
+							System.out.println("The file can only contain a maximum of 10 words. Please try again.");
+							// what do i do here
+						}
+						if (fileLine.length() > 8 || fileLine.length() < 4) {
+							System.out.println(
+									"The words in the file can only be between 4 and 8 characters, inclusive. Please try again.");
+							// what do i do here
+						}
+					}
+
 	        } catch (IOException e) {
 	            System.err.println("Sorry, there was an error reading your file: " + e.getMessage());
-	            System.out.println("Using default file, input.txt…");
-	            userFileName = defaultFileName;
 	        }
 
 	        String wordsInFile[] = new String[nOfWords];
-	        try {
+
+	        try (
 	            FileReader fileInput = new FileReader(userFileName);
-	            BufferedReader reader = new BufferedReader(fileInput);
-	            while ((fileLine = reader.readLine()) != null) {
-	                wordsInFile[index] = fileLine.toUpperCase();
-	                System.out.println("Word added to array: " + fileLine);
-	                index++;
-	            }
+	            BufferedReader reader = new BufferedReader(fileInput)) {
+					String fileLine;
+					int index = 0;
+					while ((fileLine = reader.readLine()) != null) {
+						wordsInFile[index] = fileLine.toUpperCase();
+						System.out.println("Word added to array: " + fileLine);
+						index++;
+				}
 	        } catch (IOException e) {
 	            System.err.println("Sorry, there was an error reading your file: " + e.getMessage());
 	            System.out.println("Using default file, input.txt…");
@@ -123,17 +125,20 @@ public class FileFunctions {
 	     */
 	    public static int userInputNumber(String type) {
 	    	int numType = 0;
-	    	Scanner myScanner = new Scanner(System.in);
-	    	while (numType < 10 || numType > 20) {
-	    		if (numType != 0) {
-	    			System.out.println("That number is invalid. Please try again.");
-	    		}
-	            System.out.println("How many " + type + " would you like the puzzle to have? You cannot make the " + type + " smaller than 10 or greater than 20.");
-	            numType = myScanner.nextInt();
-	        }
+			Scanner myScanner = new Scanner(System.in);
+			while (numType < 10 || numType > 20) {
+
+				if (numType != 0) {
+					System.out.println("That number is invalid. Please try again.");
+				}
+
+				System.out.println("How many " + type + " would you like the puzzle to have? You cannot make the " + type + " smaller than 10 or greater than 20.");
+				String line = myScanner.nextLine().trim();
+				numType = Integer.parseInt(line);
+			}
+
 	    	return numType;
 	    }
-
 	    
 	    public static void main (String args[]) throws IOException {
 	    	generatorMainMethod();

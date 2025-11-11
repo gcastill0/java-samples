@@ -1,0 +1,7 @@
+this
+test
+file
+contains
+seven
+words
+inside
