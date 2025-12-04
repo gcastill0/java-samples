@@ -45,15 +45,13 @@ public class Test_Animal {
 
         System.out.println();
 
-        System.out.println("The " + animal.getName() + " began the day by making a sound, expressing its presence in the "
-                + animal.getHabitat() + ".");
+        System.out.println("The " + animal.getName() + " began the day by making a sound, expressing its presence in the " + animal.getHabitat() + ".");
 
         System.out.print("Listen, the ");
 
         animal.makeSound();
 
-        System.out.print("The " + animal.getName() + " then moved through the area by "
-                + animal.getLocomotionType() + ".");
+        System.out.print("The " + animal.getName() + " then moved through the area by " + animal.getLocomotionType() + ".");
         
         System.out.print("Watch, the ");
 
