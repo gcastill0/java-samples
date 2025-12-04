@@ -74,7 +74,7 @@ public class Animal {
     }
 
     public void move() {
-        System.out.println(name + " is moving by " + locomotionType + ".");
+        System.out.println(name + " is moving by " + locomotionType + "ing.");
     }
 
     public void makeSound() {

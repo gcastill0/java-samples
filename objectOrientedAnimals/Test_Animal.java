@@ -51,7 +51,7 @@ public class Test_Animal {
 
         animal.makeSound();
 
-        System.out.print("The " + animal.getName() + " then moved through the area by " + animal.getLocomotionType() + ".");
+        System.out.println("The " + animal.getName() + " then moved through the area by " + animal.getLocomotionType() + ".");
         
         System.out.print("Watch, the ");
 
