@@ -66,22 +66,22 @@ public class Animal {
 
     // Actions
     public void eat() {
-        System.out.println(species + " is eating.");
+        System.out.println(name + " is eating.");
     }
 
     public void sleep() {
-        System.out.println(species + " is sleeping.");
+        System.out.println(name + " is sleeping.");
     }
 
     public void move() {
-        System.out.println(species + " is moving by " + locomotionType + ".");
+        System.out.println(name + " is moving by " + locomotionType + ".");
     }
 
     public void makeSound() {
-        System.out.println(species + " is making a sound.");
+        System.out.println(name + " is making a sound.");
     }
 
     public void explore() {
-        System.out.println(species + " is exploring the " + habitat + ".");
+        System.out.println(name + " is exploring the " + habitat + ".");
     }  
 }
