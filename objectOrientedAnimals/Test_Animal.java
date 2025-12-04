@@ -34,7 +34,7 @@ public class Test_Animal {
 
     public static void testGetters(Animal animal) {
         System.out.println();
-        System.out.println("This animal is a " + animal.getName());
+        System.out.println("This animal is: " + animal.getName());
         System.out.println("This animal belongs to the species: " + animal.getSpecies() + ".");
         System.out.println("This animal lives in the habitat: " + animal.getHabitat() + ".");
         System.out.println("This animal moves by: " + animal.getLocomotionType() + ".");
