@@ -24,7 +24,7 @@ public class Test_Animal {
 
 
         // Updated output
-        System.out.println("\nUpdate lion habitat to \"grasslands\"");
+        System.out.println("\nUpdate " + lion.getName() + " habitat to \"grasslands\"");
 
         // Change an attribute of the first animal
         lion.setHabitat("grasslands");
