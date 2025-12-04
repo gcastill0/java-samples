@@ -43,36 +43,19 @@ public class Test_Animal {
 
     public static void tellStory(Animal animal) {
 
-        System.out.println();
-
-        System.out.println("The " + animal.getName() + " began the day by making a sound, expressing its presence in the " + animal.getHabitat() + ".");
-
-        System.out.print("Listen, the ");
-
+        System.out.print("\nThe " + animal.getName() + " began the day by making a sound, expressing its presence in the " + animal.getHabitat() + ". Listen, the ");
         animal.makeSound();
 
-        System.out.println("The " + animal.getName() + " then moved through the area by " + animal.getLocomotionType() + ".");
-        
-        System.out.print("Watch, the ");
-
+        System.out.print("\nThe " + animal.getName() + " then moved through the area. Watch, the ");
         animal.move();
 
-        System.out.println("After exploring the surroundings, the " + animal.getName() + " decided to look around more carefully.");
-
-        System.out.print("Watch out! The ");
-
+        System.out.print("\nAfter exploring the surroundings, the " + animal.getName() + " decided to look around more carefully. Watch out! The ");
         animal.explore();
 
-        System.out.println("Feeling hungry, the " + animal.getName() + " stopped to eat.");
-        
-        System.out.print("Be Careful! The ");
-
+        System.out.print("\nFeeling hungry, the " + animal.getName() + " stopped to eat. Be Careful! The ");
         animal.eat();
 
-        System.out.println("Once the activities were finished, the " + animal.getName() + " settled down to sleep.");
-
-        System.out.print("Let's be quiet. The ");
-
+        System.out.print("\nOnce the activities were finished, the " + animal.getName() + " settled down to sleep. Let's be quiet. The ");
         animal.sleep();
     }
 
