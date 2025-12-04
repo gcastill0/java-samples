@@ -3,7 +3,7 @@ public class Animal {
     // Attributes
     private String species;        // e.g., "Canis lupus", "Panthera leo"
     private String habitat;        // e.g., "forest", "desert", "ocean"
-    private String name;           // e.g. lion, eagle
+    private String name;           // e.g., "lion", "eagle", "bear"
     private String locomotionType; // e.g., "walk", "fly", "swim", "slither"
     private String dietType;       // e.g., "herbivore", "omnivore", "carnivore"
 
